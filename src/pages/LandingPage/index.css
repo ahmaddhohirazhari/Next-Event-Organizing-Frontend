@@ -1,0 +1,40 @@
+main {
+  max-width: 100%;
+  width: 1200px;
+  margin: 30px auto;
+  padding: 0px 50px;
+}
+
+.article__event {
+  display: flex;
+}
+
+.article__image {
+  flex: 1;
+}
+
+.article__caption {
+  flex: 3;
+}
+
+.article__image--size {
+  width: 100%;
+}
+
+.article__caption--header {
+  color: #f63232;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.article__caption--header:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.article__caption--desc {
+  text-align: justify;
+  color: #4b4b4b;
+  text-indent: 30px;
+  line-height: 30px;
+}
