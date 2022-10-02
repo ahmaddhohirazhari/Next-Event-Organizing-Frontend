@@ -1,0 +1,40 @@
+* {
+  font-family: poppins;
+  margin: 0px;
+}
+.Banner {
+  background-image: url("../../assets/img/banner.png");
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 96px;
+  letter-spacing: 2px;
+  height: 660px;
+  margin-top: -90px;
+  margin-bottom: 50px;
+}
+
+.title {
+  padding-top: 100px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 96px;
+  letter-spacing: 2px;
+}
+
+.form {
+  background-color: white;
+  padding: 10px;
+
+  border-radius: 20px;
+  height: 60px;
+}
+.input_banner {
+  border: 0px;
+}
+
+.where {
+  border-left: 2px solid rgba(193, 197, 208, 0.25);
+}

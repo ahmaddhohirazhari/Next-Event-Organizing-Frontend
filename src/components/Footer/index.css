@@ -2,3 +2,16 @@
   font-size: 20px;
   font-weight: bold;
 }
+.logo_footer {
+  height: 50px;
+}
+.list_footer a {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  display: flex;
+  letter-spacing: 1px;
+
+  color: #c1c5d0;
+}

@@ -1,13 +1,13 @@
 import logo from "../../assets/img/logo.png";
-import avatar from "../../assets/img/john.png";
-// import { Link, useNavigate } from "react-router-dom";
+// import avatar from "../../assets/img/john.png";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const handleNavigate = (nav) => {
-  // navigate(`/${nav}`);
-  // };
+  const handleNavigate = (nav) => {
+    navigate(`/${nav}`);
+  };
 
   return (
     <div>
@@ -25,17 +25,14 @@ export default function Header() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon">HM</span>
+            <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                {/* <Link to="/" className="nav-link active">
+                <Link to="/" className="nav-link active">
                   Home
-                </Link> */}
-                <a className="nav-link active" aria-current="page" href="/">
-                  Home Anchor
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 {/* <Link to="/detail" className="nav-link">
@@ -56,12 +53,12 @@ export default function Header() {
             </ul>
             <div className="d-flex gap-3">
               {/* TAMPILAN JIKA LOGIN */}
-              <div style={{ cursor: "pointer" }}>
+              {/* <div style={{ cursor: "pointer" }}>
                 <img src={avatar} alt="avatar" />
               </div>
-              <p className="my-auto">John Tomson</p>
+              <p className="my-auto">John Tomson</p> */}
               {/* TAMPILAN BELUM LOGIN */}
-              {/* <button
+              <button
                 className="btn btn-outline-primary"
                 onClick={() => handleNavigate("signin")}
               >
@@ -72,7 +69,7 @@ export default function Header() {
                 onClick={() => handleNavigate("signup")}
               >
                 Signup
-              </button> */}
+              </button>
             </div>
           </div>
         </div>
