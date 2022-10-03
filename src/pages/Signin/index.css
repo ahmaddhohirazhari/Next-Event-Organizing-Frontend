@@ -1,3 +1,107 @@
-article {
-  display: inline;
+#signin {
+  display: flex;
+  position: relative;
+  height: 750px;
+  margin-bottom: 50px;
+}
+.signin {
+  padding: 100px;
+  position: relative;
+  width: 66%;
+  background-color: #3366ff;
+}
+
+.text_signin_1 {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  /* identical to box height */
+
+  letter-spacing: 1px;
+
+  color: #373a42;
+  margin-top: 10px;
+}
+.text_signin_2 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+.forgot_password {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #3366ff;
+  text-decoration: none;
+  text-align: right;
+  margin: 10px;
+}
+
+.form_signin {
+  padding: 50px 20px;
+  margin: 30px 20px;
+  margin-left: 50px;
+}
+
+.form_input_signin {
+  box-sizing: border-box;
+  padding: 20px;
+  position: relative;
+  width: 300px;
+  height: 20px;
+  margin: 10px;
+
+  border: 1px solid #c1c5d0;
+  border-radius: 15px;
+}
+
+.submit_signin {
+  box-sizing: border-box;
+  width: 300px;
+  height: 50px;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+
+  font-size: 16px;
+  margin: 4px 10px;
+  cursor: pointer;
+
+  border-radius: 15px;
+  background: #3366ff;
+}
+
+section .forgot {
+}
+
+section .logo {
+  justify-content: space-around;
+}
+section .logo div {
+  margin: 20px 28px;
+  position: relative;
+  display: inline-flex;
+  justify-content: space-around;
+  box-sizing: border-box;
+  border: 1px solid #c1c5d0;
+  width: 100px;
+  height: 52px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+section .form .google {
+  width: 50px;
+  height: 50px;
+}
+
+section .form .fb {
+  width: 50px;
+  height: 50px;
 }
