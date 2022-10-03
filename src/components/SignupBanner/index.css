@@ -6,14 +6,20 @@
 }
 
 .sign_up {
-  position: relative;
-  width: 65%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 750px;
+  width: 66%;
   background-color: #3366ff;
 }
 .banner_image_signup {
   position: relative;
-  margin-top: 50px;
+  width: 550px;
+  height: 480px;
+}
+.form_signup {
+  margin: auto;
 }
 .signup_text {
   font-family: "Poppins";
@@ -72,7 +78,7 @@
   text-decoration: none;
 
   font-size: 16px;
-  margin: 4px 10px;
+  margin: 5px 10px;
   cursor: pointer;
 
   border-radius: 15px;
@@ -82,7 +88,7 @@
 /* // Medium devices (tablets, less than 992px) */
 @media (max-width: 767.98px) {
   #signup {
-    margin-right: 100px;
+    margin: auto;
   }
   .sign_up {
     position: relative;
@@ -98,7 +104,6 @@
 /* // Medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
   .banner_image_signup {
-    margin-top: 200px;
     width: 300px;
     height: 250px;
   }

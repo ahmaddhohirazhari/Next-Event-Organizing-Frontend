@@ -1,16 +1,21 @@
 #signin {
   display: flex;
   position: relative;
-  height: 750px;
   margin-bottom: 50px;
 }
 .signin {
-  padding: 100px;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 750px;
   width: 66%;
   background-color: #3366ff;
 }
-
+.image_signin {
+  position: relative;
+  width: 550px;
+  height: 480px;
+}
 .text_signin_1 {
   font-family: "Poppins";
   font-style: normal;
@@ -22,13 +27,14 @@
   letter-spacing: 1px;
 
   color: #373a42;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .text_signin_2 {
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
+  margin-bottom: 40px;
 }
 .forgot_password {
   font-style: normal;
@@ -43,8 +49,7 @@
 
 .form_signin {
   padding: 50px 20px;
-  margin: 30px 20px;
-  margin-left: 50px;
+  margin: auto;
 }
 
 .form_input_signin {
@@ -53,55 +58,82 @@
   position: relative;
   width: 300px;
   height: 20px;
-  margin: 10px;
-
   border: 1px solid #c1c5d0;
   border-radius: 15px;
+}
+.form_input_signin1 {
+  margin-top: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+  position: relative;
+  width: 300px;
+  height: 20px;
+  border: 1px solid #c1c5d0;
+  border-right: 0px;
+  border-radius: 15px;
+}
+.input_password {
+  width: 300px;
+}
+.button_hendle_password {
+  margin-top: 10px;
+  box-sizing: border-box;
+  padding-top: 8px;
+  padding-bottom: 32px;
+  position: relative;
+  width: 40px;
+  height: 15px;
+  border: 1px solid #c1c5d0;
+  border-left: 0px;
+  border-radius: 10px;
 }
 
 .submit_signin {
   box-sizing: border-box;
   width: 300px;
-  height: 50px;
+
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 10px;
   text-align: center;
   text-decoration: none;
 
   font-size: 16px;
-  margin: 4px 10px;
+  margin: 4px;
   cursor: pointer;
 
   border-radius: 15px;
   background: #3366ff;
 }
 
-section .forgot {
+.logo {
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+  margin-top: 20px;
 }
 
-section .logo {
-  justify-content: space-around;
-}
-section .logo div {
-  margin: 20px 28px;
+.google {
   position: relative;
-  display: inline-flex;
-  justify-content: space-around;
-  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
   border: 1px solid #c1c5d0;
-  width: 100px;
-  height: 52px;
-  cursor: pointer;
+  border-radius: 6px;
+}
+.fb {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #c1c5d0;
   border-radius: 6px;
 }
 
-section .form .google {
-  width: 50px;
-  height: 50px;
-}
-
-section .form .fb {
-  width: 50px;
-  height: 50px;
+/* // Medium devices (tablets, less than 992px) */
+@media (max-width: 767.98px) {
+  .image_signin {
+    visibility: hidden;
+  }
+  .signin {
+    width: 0%;
+  }
 }

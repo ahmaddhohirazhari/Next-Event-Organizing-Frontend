@@ -1,9 +1,34 @@
 import React from "react";
+import { useState } from "react";
+import axios from "../../utils/axios";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 import banner from "../../assets/img/banner-signup.png";
 import logo from "../../assets/img/logo.png";
 
 export default function SignupBanner() {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSignup = async () => {
+    try {
+      const result = await axios.post("auth/register", form);
+      localStorage.setItem("idUser", result.data.data.id);
+      alert(result.data.msg);
+      navigate("/Signin");
+    } catch (error) {
+      alert(error.response.data.msg);
+    }
+  };
+
+  const handleChangeForm = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
   return (
     <section id="signup">
       <div className="sign_up text-center">
@@ -23,18 +48,24 @@ export default function SignupBanner() {
             className="form_input_signup_1"
             type="text"
             placeholder="Username"
+            name="username"
+            onChange={handleChangeForm}
           />
           <br />
           <input
             className="form_input_signup_1"
             type="email"
             placeholder="Email"
+            name="email"
+            onChange={handleChangeForm}
           />
           <br />
           <input
             className="form_input_signup_1"
             type="password"
             placeholder="Password"
+            name="password"
+            onChange={handleChangeForm}
           />
           <br />
           <input
@@ -53,9 +84,12 @@ export default function SignupBanner() {
         />
         <label htmlFor="terms"> Accept terms and condition</label>
         <br />
-        <a href="./Sign-In.html">
-          <input className="submit_signup" type="submit" value="Sign Up" />
-        </a>
+        <input
+          className="submit_signup"
+          type="submit"
+          value="Sign Up"
+          onClick={handleSignup}
+        />
       </div>
     </section>
   );
