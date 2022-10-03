@@ -1,7 +1,13 @@
+import "./index.css";
+
+import SignupBanner from "../../components/SignupBanner";
+import Footer from "../../components/Footer";
+
 function Signup() {
   return (
     <div>
-      <h1>SignUp Page</h1>
+      <SignupBanner />
+      <Footer />
     </div>
   );
 }

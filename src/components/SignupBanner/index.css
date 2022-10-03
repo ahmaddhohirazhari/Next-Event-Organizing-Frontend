@@ -1,0 +1,80 @@
+#signup {
+  width: 100%;
+  height: 750px;
+  display: flex;
+  margin-bottom: 50px;
+}
+
+.sign_up {
+  position: relative;
+  width: 65%;
+  height: 100%;
+  background-color: #3366ff;
+}
+.banner_image_signup {
+  position: relative;
+  margin-top: 50px;
+}
+.signup_text {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  /* identical to box height */
+
+  letter-spacing: 1px;
+
+  color: #373a42;
+}
+.signup_text2 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+.form_signup a {
+  color: #3366ff;
+  text-decoration: none;
+}
+
+.form_signup {
+  position: relative;
+  padding: 50px 50px;
+  justify-content: center;
+}
+.form_input_signup {
+  margin-top: 30px;
+}
+.form_input_signup_1 {
+  margin-top: 20px;
+  box-sizing: border-box;
+  padding: 20px;
+  position: relative;
+  width: 300px;
+  height: 20px;
+  margin: 10px;
+
+  border: 1px solid #c1c5d0;
+  border-radius: 15px;
+}
+.checkbox_signup {
+  margin: 20px 10px;
+}
+.submit_signup {
+  box-sizing: border-box;
+  width: 300px;
+  height: 50px;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+
+  font-size: 16px;
+  margin: 4px 10px;
+  cursor: pointer;
+
+  border-radius: 15px;
+  background: #3366ff;
+}
