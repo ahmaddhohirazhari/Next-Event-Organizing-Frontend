@@ -17,7 +17,7 @@ export default function SignupBanner() {
   const handleSignup = async () => {
     try {
       const result = await axios.post("auth/register", form);
-      localStorage.setItem("idUser", result.data.data.id);
+      localStorage.setItem("userId", result.data.data.userId);
       alert(result.data.msg);
       navigate("/Signin");
     } catch (error) {

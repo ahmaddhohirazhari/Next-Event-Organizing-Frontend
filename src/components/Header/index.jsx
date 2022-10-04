@@ -5,7 +5,7 @@ import "./index.css";
 
 export default function Header() {
   const navigate = useNavigate();
-  const isLogin = true;
+  const isLogin = localStorage.getItem("token");
   const name = "";
 
   const handleNavigate = (nav) => {
@@ -33,7 +33,7 @@ export default function Header() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link to="/" className="nav-link link-header">
+                <Link to="/" className="nav-link">
                   Home
                 </Link>
                 {/* <a className="nav-link active" aria-current="page" href="/">
@@ -41,7 +41,7 @@ export default function Header() {
                 </a> */}
               </li>
               <li className="nav-item">
-                <Link to="/detail" className="nav-link link-header">
+                <Link to="/detail" className="nav-link">
                   Create Event
                 </Link>
                 {/* <a className="nav-link" href="/detail">
@@ -49,7 +49,7 @@ export default function Header() {
                 </a> */}
               </li>
               <li className="nav-item">
-                <Link to="/" className="nav-link link-header">
+                <Link to="/" className="nav-link">
                   Location
                 </Link>
                 {/* <a className="nav-link" href="#">

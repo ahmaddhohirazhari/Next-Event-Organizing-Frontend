@@ -28,32 +28,29 @@ function Counter() {
 
   return (
     <div className="container text-center">
-      <div>
-        <h1>Counter App</h1>
-        <hr />
-        <h3>{counter}</h3>
-        <button className="btn btn-primary" onClick={decrement}>
-          -
-        </button>
-        <button
-          className="btn btn-primary mx-2"
-          onClick={() => {
-            console.log("RESET DATA");
-            setCounter(0);
-          }}
-        >
-          Reset
-        </button>
-        <button className="btn btn-primary" onClick={() => increment(2)}>
-          +2
-        </button>
-      </div>
+      <h1>HANDLE CLICK</h1>
+      <hr />
+      <h3>{counter}</h3>
+      <button className="btn btn-primary" onClick={decrement}>
+        -
+      </button>
+      <button
+        className="btn btn-primary mx-2"
+        onClick={() => {
+          console.log("RESET DATA");
+          setCounter(0);
+        }}
+      >
+        Reset
+      </button>
+      <button className="btn btn-primary" onClick={() => increment(2)}>
+        +2
+      </button>
       <hr />
       <h1>HANDLE INPUT</h1>
       {/* onChange = akan berjalan setiap user memasukkan nilai ke dalam form input */}
       <input
         type="text"
-        name="email"
         placeholder="Input your email"
         onChange={(e) => {
           console.log(e);
