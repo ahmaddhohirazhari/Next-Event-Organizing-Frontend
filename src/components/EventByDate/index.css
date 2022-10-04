@@ -124,7 +124,7 @@
 }
 
 /* // Medium devices (tablets, less than 992px) */
-@media (min-width: 767.98px) {
+@media (min-width: 768px) and (max-width: 991.98px) {
   #EventByDate {
     height: 3000px;
     margin-bottom: 50px;
