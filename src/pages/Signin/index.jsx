@@ -20,7 +20,7 @@ function Signin() {
   const handleLogin = async () => {
     try {
       const result = await axios.post("auth/login", form);
-      localStorage.setItem("idUser", result.data.data.id);
+      localStorage.setItem("idUser", result.data.data.userId);
       localStorage.setItem("token", result.data.data.token);
       alert(result.data.msg);
       navigate("/");

@@ -34,7 +34,7 @@ export default function EventByDate() {
             fri
           </button>
         </div>
-        <div className="container_event d-flex justify-content-center gap-4 mt-5">
+        <div className="container_event  justify-content-center gap-4 mt-5">
           <div className="card  ">
             <img
               src={event1}
@@ -43,11 +43,11 @@ export default function EventByDate() {
             />
             <div className="card-body card_image text-start text-white">
               <br />
-              <p className="card-text card_text_event mt-5">
-                Wed, 15 Nov, 4:00 PM
-              </p>
-              <h5 className="card-title  ">Sights & Sounds Exhibition</h5>
-              <img className="mt-4" src={attends} alt="" />
+              <p className="card-text card_text_event ">Wed, 15 Nov, 4:00 PM</p>
+              <h5 className="card-title card_title ">
+                Sights & Sounds Exhibition
+              </h5>
+              <img className="attends " src={attends} alt="" />
             </div>
           </div>
           <div className="card  ">
@@ -58,11 +58,11 @@ export default function EventByDate() {
             />
             <div className="card-body card_image text-start text-white">
               <br />
-              <p className="card-text card_text_event mt-5">
-                Wed, 15 Nov, 4:00 PM
-              </p>
-              <h5 className="card-title  ">Sights & Sounds Exhibition</h5>
-              <img className="mt-4" src={attends} alt="" />
+              <p className="card-text card_text_event ">Wed, 15 Nov, 4:00 PM</p>
+              <h5 className="card-title card_title ">
+                Sights & Sounds Exhibition
+              </h5>
+              <img className="attends" src={attends} alt="" />
             </div>
           </div>
           <div className="card  ">
@@ -73,11 +73,11 @@ export default function EventByDate() {
             />
             <div className="card-body card_image text-start text-white">
               <br />
-              <p className="card-text card_text_event mt-5">
-                Wed, 15 Nov, 4:00 PM
-              </p>
-              <h5 className="card-title  ">Sights & Sounds Exhibition</h5>
-              <img className="mt-4" src={attends} alt="" />
+              <p className="card-text card_text_event ">Wed, 15 Nov, 4:00 PM</p>
+              <h5 className="card-title card_title ">
+                Sights & Sounds Exhibition
+              </h5>
+              <img className="attends" src={attends} alt="" />
             </div>
           </div>
           <div className="card  ">
@@ -88,11 +88,11 @@ export default function EventByDate() {
             />
             <div className="card-body card_image text-start text-white">
               <br />
-              <p className="card-text card_text_event mt-5">
-                Wed, 15 Nov, 4:00 PM
-              </p>
-              <h5 className="card-title  ">Sights & Sounds Exhibition</h5>
-              <img className="mt-4" src={attends} alt="" />
+              <p className="card-text card_text_event ">Wed, 15 Nov, 4:00 PM</p>
+              <h5 className="card-title  card_title">
+                Sights & Sounds Exhibition
+              </h5>
+              <img className="attends" src={attends} alt="" />
             </div>
           </div>
         </div>
