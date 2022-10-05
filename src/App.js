@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signin from "./pages/Signin/example";
 import Signup from "./pages/Signup";
 
-import LandingPage from "./pages/LandingPage/example";
+import LandingPage from "./pages/LandingPage";
 import Detail from "./pages/Detail";
 import Counter from "./pages/Counter/functional-components";
 
@@ -19,7 +19,7 @@ function App() {
 
         {/* MAIN */}
         <Route path="/" element={<LandingPage />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/counter" element={<Counter />} />
 
         {/* PAGE NOT FOUND */}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CardEvent from "../../components/CardEvent";
 import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
+import "./index.css";
 
 function Landing() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function Landing() {
   const getDataProduct = async () => {
     try {
       const result = await axios.get(
-        `product?searchName=&sort=&limit=5&page=${page}&searchDateCreated=`
+        `event?page=${page}&searchName=&searchDateShow=&sort=`
       );
       // console.log(result);
       setData(result.data.data);
@@ -51,7 +52,7 @@ function Landing() {
 
   return (
     <>
-      <main className="container d-flex gap-3">
+      <main className="container d-flex justify-content-center gap-3">
         {data.length > 0 ? (
           data.map((item) => (
             <div key={item.id}>

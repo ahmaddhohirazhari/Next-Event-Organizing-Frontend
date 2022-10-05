@@ -6,7 +6,7 @@ import "./index.css";
 export default function Header() {
   const navigate = useNavigate();
   const isLogin = localStorage.getItem("token");
-  const name = "";
+  const name = "dhohir";
 
   const handleNavigate = (nav) => {
     navigate(`/${nav}`);
