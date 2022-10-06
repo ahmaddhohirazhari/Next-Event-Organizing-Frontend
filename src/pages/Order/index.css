@@ -14,27 +14,62 @@
   height: 850px;
 }
 
-.checkout button {
+.checkout_button_order {
   width: 315px;
   height: 55px;
-  background: #3366ff;
   box-shadow: 0px 8px 10px rgba(35, 149, 255, 0.3);
   border-radius: 15px;
 }
 #sheet {
   margin-left: -20px;
 }
-.list img {
+.list_img_order {
   width: 50px;
   height: 50px;
 }
-.quantity button {
+.quantity_button_order {
   border: 1px;
 }
-.quantity input {
+.quantity_input_order {
   width: 25px;
 }
-.quantity button img {
+.quantity_button_img_order {
   width: 10px;
   height: 10px;
+}
+
+.bg-grey {
+  background-color: #c1c5d0;
+}
+
+.container_order {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card_order {
+  width: 1126px;
+  display: flex;
+}
+
+.rotate-seat {
+  transform: rotate(-45deg);
+}
+
+.ticket-scrolling {
+  height: 300px;
+  overflow: auto;
+  background-color: white;
+}
+
+.ticket-icon {
+  width: 45px;
+}
+
+@media (max-width: 767.98px) {
+  .rotate-seat {
+    transform: none;
+  }
 }

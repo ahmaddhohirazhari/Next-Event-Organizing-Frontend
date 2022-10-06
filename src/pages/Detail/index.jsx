@@ -12,16 +12,36 @@ import attends from "../../assets/img/avatarevent.png";
 function Detail() {
   // [1] GIMANA CARANYA UNTUK MENDAPATKAN ID DARI URL ?
   const { eventId } = useParams();
+  const userId = useState(localStorage.getItem("idUser"));
   const navigate = useNavigate();
   const [data, setData] = useState({});
   const [addWishlist, setAddWishlist] = useState(false);
+  const [form, setForm] = useState({
+    eventId: eventId,
+    userId: userId[0],
+  });
+  console.log(userId);
+  console.log(eventId);
+  console.log(setForm);
+  console.log(form);
+
+  // const handleCreateWishlist = async () => {
+  //   try {
+  //     const result = await axios.post("wishlist/", form);
+  //     // localStorage.setItem("userId", result.data.data.userId);
+  //     alert(result.data.msg);
+  //     navigate("/Signin");
+  //   } catch (error) {
+  //     alert(error.response.data.msg);
+  //   }
+  // };
 
   // [2] GET EVENT BY ID
   const getDataEvent = async () => {
     try {
       const result = await axios.get(`event/${eventId}`);
-      console.log(result);
       setData(result.data.data[0]);
+      console.log(result);
     } catch (error) {
       console.error(error);
     }
@@ -30,7 +50,8 @@ function Detail() {
   // [3] SIMPAN DATA KE STATE
   useEffect(() => {
     getDataEvent();
-  }, [data]);
+    setData(data);
+  }, []);
 
   const handleBuyTicket = async () => {
     try {
@@ -41,9 +62,16 @@ function Detail() {
       //   console.error(error.response);
     }
   };
-
-  const handleAddWishlist = () => {
-    setAddWishlist(!addWishlist); // mengeset nilai kebalikan dari boolean
+  const handleAddWishlist = async () => {
+    try {
+      setAddWishlist(!addWishlist); // mengeset nilai kebalikan dari boolean
+      console.log(form);
+      const result = await axios.post("wishlist/", form);
+      // localStorage.setItem("userId", result.data.data.userId);
+      alert(result.data.msg);
+    } catch (error) {
+      console.error(error.response);
+    }
   };
   // [4] LETAKAN DATA YANG SUDAH DINAMIS
   return (
@@ -77,7 +105,7 @@ function Detail() {
               <div className="row mt-5 text-start">
                 <div className="col ">
                   <p>
-                    <i className="bi bi-geo-alt"></i> {data.location}
+                    <i className="bi bi-geo-alt"></i> {data.detail}
                   </p>
                 </div>
                 <div className="col">
