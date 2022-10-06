@@ -6,14 +6,16 @@ import "./index.css";
 import banner from "../../assets/img/banner-signup.png";
 import logo from "../../assets/img/logo.png";
 
-export default function SignupBanner() {
+function SignupBanner() {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
-
+  const [showPassword, setShowPassword] = useState(false);
   const handleSignup = async () => {
     try {
       const result = await axios.post("auth/register", form);
@@ -28,7 +30,9 @@ export default function SignupBanner() {
   const handleChangeForm = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <section id="signup">
       <div className="sign_up text-center">
@@ -40,12 +44,12 @@ export default function SignupBanner() {
         <br />
         <br />
         <h2 className="signup_text">Sign Up</h2>
-        <h3 className="signup_text2">
+        <h3 className="signup_text2 mb-5">
           Already have an account? <a href="./login.html"> Log In</a>
         </h3>
-        <form className="form_input_signup" action="input">
+        <form className="input " action="input">
           <input
-            className="form_input_signup_1"
+            className="form_input_signin mb-2"
             type="text"
             placeholder="Username"
             name="username"
@@ -53,28 +57,60 @@ export default function SignupBanner() {
           />
           <br />
           <input
-            className="form_input_signup_1"
+            className="form_input_signin"
             type="email"
             placeholder="Email"
             name="email"
             onChange={handleChangeForm}
           />
           <br />
+        </form>
+        <div className="input-group input_password ">
           <input
-            className="form_input_signup_1"
+            className="form-control form_input_signin1"
             type="password"
             placeholder="Password"
             name="password"
             onChange={handleChangeForm}
           />
-          <br />
+          <button
+            onClick={handleShowPassword}
+            className="button_hendle_password"
+          >
+            {showPassword ? (
+              <>
+                <i className="bi bi-eye"></i>
+              </>
+            ) : (
+              <>
+                <i className="bi bi-eye-slash"></i>
+              </>
+            )}
+          </button>
+        </div>
+        <div className="input-group input_password mb-3">
           <input
-            className="form_input_signup_1"
+            className="form-control form_input_signin1"
             type="password"
-            placeholder="Confirm Password"
+            placeholder="confirmPassword"
+            name="confirmPassword"
+            onChange={handleChangeForm}
           />
-          <br />
-        </form>
+          <button
+            onClick={handleShowPassword}
+            className="button_hendle_password"
+          >
+            {showPassword ? (
+              <>
+                <i className="bi bi-eye"></i>
+              </>
+            ) : (
+              <>
+                <i className="bi bi-eye-slash"></i>
+              </>
+            )}
+          </button>
+        </div>
         <input
           className="checkbox_signup"
           type="checkbox"
@@ -94,3 +130,5 @@ export default function SignupBanner() {
     </section>
   );
 }
+
+export default SignupBanner;
