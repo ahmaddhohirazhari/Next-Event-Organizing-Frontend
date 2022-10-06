@@ -1,22 +1,38 @@
 import { useEffect, useState } from "react";
+import moment from "moment";
 import CardEvent from "../../components/CardEvent";
 import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
 import "./index.css";
 export default function EventByDate() {
   const navigate = useNavigate();
-  // const data = [
-  //   { id: 1, name: "Tea", category: "Drink" },
-  //   { id: 2, name: "Milk", category: "Drink" },
-  //   { id: 3, name: "Coffee", category: "Drink" },
-  // ];
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
   const [page, setPage] = useState(1);
-  const [date, setDate] = useState(`${new Date()}`);
-  const [prevDate, setPrevDate] = useState(`${new Date()}`);
-  console.log(prevDate);
-  // const prevDate1 = new Date(new Date(date).setDate(date.getDate() + 1));
+
+  const [dateShow, setDateShow] = useState(moment().format("YYYY-MM-DD")); // 2022-10-04
+  const [listDateShow, setListDateShow] = useState([]);
+
+  useEffect(() => {
+    generateDate();
+  }, [dateShow]);
+
+  const generateDate = () => {
+    let listDate = [
+      moment(dateShow).subtract(2, "days"),
+      moment(dateShow).subtract(1, "days"),
+      dateShow,
+      moment(dateShow).subtract(-1, "days"),
+      moment(dateShow).subtract(-2, "days"),
+    ];
+    setListDateShow(listDate);
+  };
+
+  const selectDate = (date) => {
+    setDateShow(date);
+  };
+
+  console.log("DATE ACTIVE = " + dateShow);
 
   // DIGUNAKAN UNTUK GET DATA PERTAMA KALI
   useEffect(() => {
@@ -28,14 +44,10 @@ export default function EventByDate() {
     getDataEvent();
   }, [page]);
 
-  useEffect(() => {
-    getDataEvent();
-  }, [date]);
-
   const getDataEvent = async () => {
     try {
       const result = await axios.get(
-        `event?page=${page}&searchName=&searchDateShow=&sort=`
+        `event?page=${page}&searchName=&searchDateShow=${dateShow}&sort=`
       );
 
       setData(result.data.data);
@@ -44,34 +56,8 @@ export default function EventByDate() {
       console.error(error);
     }
   };
-  // const day = new Date(date);
-  // console.log(day);
-  // const prevDate1 = new Date(new Date(day).setDate(day.getDate() - 1));
-  // console.log(prevDate1);
 
-  const handleDate = () => {
-    setDate(new Date().toString());
-  };
-  console.log(typeof date);
-  const day = new Date(date);
-  console.log(typeof day);
-
-  const handlePrevDate1 = () => {
-    setPrevDate(new Date(new Date(date).setDate(date.getDate() - 1)).toString);
-  };
-
-  const handlePrevDate2 = () => {
-    setDate(new Date(new Date(date).setDate(date.getDate() - 2)));
-  };
-
-  const handleNextDate1 = () => {
-    setDate(new Date(new Date(date).setDate(date.getDate() + 1)));
-  };
-  const handleNextDate2 = () => {
-    setDate(new Date(new Date(date).setDate(date.getDate() + 2)));
-  };
-
-  const handleDetailProduct = (eventId) => {
+  const handleDetailEvent = (eventId) => {
     navigate(`/detail/${eventId}`);
   };
 
@@ -90,43 +76,38 @@ export default function EventByDate() {
           <button className="button_event">Event</button>
           <h3 className="mb-5">Events For You</h3>
         </div>
-        <div className="d-flex justify-content-center gap-5">
-          <button className="event_date" onClick={handlePrevDate2}>
-            {date}
-          </button>
-
-          <button className="event_date" onClick={handlePrevDate1}>
-            {prevDate}
-          </button>
-          <button className="event_date_active event_date" onClick={handleDate}>
-            {date.toString().split("2022")[0]}
-          </button>
-          <button className="event_date" onClick={handleNextDate1}>
-            {date}
-          </button>
-          <button className="event_date" onClick={handleNextDate2}>
-            {date}
-          </button>
+        <div className="d-flex justify-content-center gap-3">
+          {listDateShow.map((item, index) => (
+            <button
+              key={index}
+              style={{ margin: "0 10px" }}
+              className={
+                index === 2 ? "event_date_active event_date" : "event_date"
+              }
+              onClick={() => {
+                selectDate(moment(item).format("YYYY-MM-DD"));
+              }}
+            >
+              <div>{moment(item).format("DD")}</div>
+              <small>{moment(item).format("ddd")}</small>
+            </button>
+          ))}
         </div>
-        <div className="container_event  justify-content-center gap-4 mt-5">
-          <main className="container container_event gap-3">
-            {data.length > 0 ? (
-              data.map((item) => (
-                <div key={item.eventId}>
-                  <CardEvent
-                    data={item}
-                    newData="Data Baru nih"
-                    handleDetail={handleDetailProduct}
-                  />
-                </div>
-              ))
-            ) : (
-              <div className="text-center">
-                <h3>Data Not Found !</h3>
+      </div>
+      <div className="container_event  justify-content-center gap-4 mt-5">
+        <main className="container container_event gap-3">
+          {data.length > 0 ? (
+            data.map((item) => (
+              <div key={item.eventId}>
+                <CardEvent data={item} handleDetail={handleDetailEvent} />
               </div>
-            )}
-          </main>
-        </div>
+            ))
+          ) : (
+            <div className="text-center justify-content-center nothing_event">
+              <h3>Nothing Event</h3>
+            </div>
+          )}
+        </main>
       </div>
 
       <div className="d-flex gap-2 justify-content-center w-100 my-5">
