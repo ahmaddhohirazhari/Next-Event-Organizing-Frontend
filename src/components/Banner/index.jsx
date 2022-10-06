@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./index.css";
 
 export default function Banner() {
@@ -18,6 +19,7 @@ export default function Banner() {
                   aria-label="First name"
                   className="input_banner form-control"
                   placeholder="Search Event"
+                  name="name"
                 ></input>
                 <input
                   type="text"
