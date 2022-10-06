@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./index.css";
 
-export default function Banner() {
+export default function Banner(props) {
+  const [keyword, setKeyword] = useState("");
+
+  const handleSearch = () => {
+    props.handleSearch(keyword);
+    console.log(keyword);
+  };
+
   return (
     <section className="Banner text-center">
       <div className="container">
@@ -20,6 +27,9 @@ export default function Banner() {
                   className="input_banner form-control"
                   placeholder="Search Event"
                   name="name"
+                  onChange={(e) => {
+                    setKeyword(e.target.value);
+                  }}
                 ></input>
                 <input
                   type="text"
@@ -27,7 +37,12 @@ export default function Banner() {
                   className="input_banner where form-control"
                   placeholder="Where?"
                 ></input>
-                <button className="btn " type="submit" id="button-addon2">
+                <button
+                  className="btn "
+                  type="submit"
+                  id="button-addon2"
+                  onClick={handleSearch}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="30"

@@ -30,12 +30,11 @@ function Detail() {
   // [3] SIMPAN DATA KE STATE
   useEffect(() => {
     getDataEvent();
-  }, []);
-  console.log(data);
+  }, [data]);
 
   const handleBuyTicket = async () => {
     try {
-      localStorage.setItem("dataEvent", JSON.stringify(data));
+      // localStorage.setItem("dataEvent", JSON.stringify(data));
       navigate(`/order/${data.eventId}`);
     } catch (error) {
       alert(error.response.data.msg);
@@ -91,7 +90,7 @@ function Detail() {
               <img src={attends} alt="" className="attends_detail" />
               <div id="detail-event-2">
                 <h2 className="mt-5">Event Detail</h2>
-                <p className="me-3">{data.detail}</p>
+                <p className="me-3">{data?.detail}</p>
                 <p>
                   <a href="">Read More</a>
                 </p>

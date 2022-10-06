@@ -3,6 +3,7 @@
   margin-bottom: 50px;
 }
 .container_event {
+  justify-content: center;
   margin: auto;
   height: auto;
   display: flex;

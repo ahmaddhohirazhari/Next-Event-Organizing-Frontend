@@ -1,5 +1,5 @@
 import "./index.css";
-
+import { useState } from "react";
 import Header from "../../components/Header";
 import Banner from "../../components/Banner";
 import EventByDate from "../../components/EventByDate";
@@ -8,6 +8,10 @@ import EventByCategory from "../../components/EventByCategory";
 import Footer from "../../components/Footer";
 
 function Landing() {
+  const [searchName, setSearchName] = useState("");
+  const handleSearch = (keyword) => {
+    setSearchName(keyword);
+  };
   return (
     <>
       {/* START HEADER */}
@@ -15,8 +19,8 @@ function Landing() {
       {/* END HEADER */}
 
       {/* START MAIN */}
-      <Banner />
-      <EventByDate />
+      <Banner handleSearch={handleSearch} />
+      <EventByDate searchName={searchName} />
       <EventByLocation />
       <EventByCategory />
 
