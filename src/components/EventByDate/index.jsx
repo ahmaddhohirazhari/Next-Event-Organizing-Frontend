@@ -34,9 +34,6 @@ export default function EventByDate() {
 
   const getDataEvent = async () => {
     try {
-      console.log(page);
-      console.log(date);
-
       const result = await axios.get(
         `event?page=${page}&searchName=&searchDateShow=&sort=`
       );

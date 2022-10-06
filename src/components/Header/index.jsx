@@ -33,7 +33,7 @@ export default function Header() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link to="/" className="nav-link">
+                <Link to="/" className="nav-link link_header">
                   Home
                 </Link>
                 {/* <a className="nav-link active" aria-current="page" href="/">
@@ -41,7 +41,7 @@ export default function Header() {
                 </a> */}
               </li>
               <li className="nav-item">
-                <Link to="/detail" className="nav-link">
+                <Link to="/detail" className="nav-link link_header">
                   Create Event
                 </Link>
                 {/* <a className="nav-link" href="/detail">
@@ -49,7 +49,7 @@ export default function Header() {
                 </a> */}
               </li>
               <li className="nav-item">
-                <Link to="/" className="nav-link">
+                <Link to="/" className="nav-link link_header">
                   Location
                 </Link>
                 {/* <a className="nav-link" href="#">
