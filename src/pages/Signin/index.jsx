@@ -11,6 +11,7 @@ import fb from "../../assets/img/fb_logo.png";
 
 function Signin() {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -20,6 +21,7 @@ function Signin() {
   const handleLogin = async () => {
     try {
       const result = await axios.post("auth/login", form);
+
       localStorage.setItem("idUser", result.data.data.userId);
       localStorage.setItem("token", result.data.data.token);
       alert(result.data.msg);

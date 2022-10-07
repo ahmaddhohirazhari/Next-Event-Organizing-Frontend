@@ -3,10 +3,11 @@ import avatar from "../../assets/img/john.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
 
-export default function Header() {
+export default function Header(props) {
   const navigate = useNavigate();
   const isLogin = localStorage.getItem("token");
-  const name = "dhohir";
+  const name = props.name;
+  console.log(name);
 
   const handleNavigate = (nav) => {
     navigate(`/${nav}`);

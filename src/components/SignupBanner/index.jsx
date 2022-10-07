@@ -67,8 +67,8 @@ function SignupBanner() {
         </form>
         <div className="input-group input_password ">
           <input
+            type={showPassword ? "text" : "password"}
             className="form-control form_input_signin1"
-            type="password"
             placeholder="Password"
             name="password"
             onChange={handleChangeForm}
@@ -90,8 +90,8 @@ function SignupBanner() {
         </div>
         <div className="input-group input_password mb-3">
           <input
+            type={showPassword ? "text" : "password"}
             className="form-control form_input_signin1"
-            type="password"
             placeholder="confirmPassword"
             name="confirmPassword"
             onChange={handleChangeForm}
