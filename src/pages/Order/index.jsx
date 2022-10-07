@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 import { useState, useEffect } from "react";
-
+// import axios from "../../utils/axios";
 import SeatPosition from "../../components/Seatposition";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -21,7 +21,8 @@ function Order() {
     getDataEvent();
   }, []);
 
-  const getDataBooking = () => {
+  const getDataBooking = async () => {
+    // const result= await axios.get(`/`)
     // https://www.notion.so/Modul-Booking-293a2b5a8f2b4d09a8e1f25304592c22
     const DATADUMMY = {
       status: 200,
