@@ -1,13 +1,31 @@
+import { useEffect, useState } from "react";
+import axios from "../../utils/axios";
 import logo from "../../assets/img/logo.png";
+
 import avatar from "../../assets/img/john.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
 
-export default function Header(props) {
+export default function Header() {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const isLogin = localStorage.getItem("token");
-  const name = props.name;
+  const userId = localStorage.getItem("idUser");
+
   console.log(name);
+  useEffect(() => {
+    getData();
+    setName(name);
+  }, []);
+  const getData = async () => {
+    try {
+      const result = await axios.get(`user/${userId}`);
+      console.log(result.data.data[0].username);
+      setName(result.data.data[0].username);
+    } catch (error) {
+      console.error(error.response);
+    }
+  };
 
   const handleNavigate = (nav) => {
     navigate(`/${nav}`);
