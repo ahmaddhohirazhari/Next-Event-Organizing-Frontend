@@ -12,15 +12,12 @@ export default function Header() {
   const isLogin = localStorage.getItem("token");
   const userId = localStorage.getItem("idUser");
 
-  console.log(name);
   useEffect(() => {
     getData();
-    setName(name);
   }, []);
   const getData = async () => {
     try {
       const result = await axios.get(`user/${userId}`);
-      console.log(result.data.data[0].username);
       setName(result.data.data[0].username);
     } catch (error) {
       console.error(error.response);

@@ -7,8 +7,11 @@ import Footer from "../../components/Footer";
 import ticketREG from "../../assets/img/REG.png";
 import ticketVIP from "../../assets/img/VIP.png";
 import ticketVVIP from "../../assets/img/VVIP.png";
+import { useParams } from "react-router-dom";
+import axios from "../../utils/axios";
 
 function Order() {
+  const { eventId } = useParams();
   const [fullSeat, setFullSeat] = useState([]); // DI GUNAKAN UNTUK MENAMPUNG SEAT YANG FULL
   const [activeSeat, setActiveSeat] = useState([]); // DIGUNAKAN UNTUK MENAMPUNG SEAT YANG SEDANG DIPILIH
   const [dataOrder, setDataOrder] = useState([]); // DIGUNAKAN UNTUK MENAMPUNG SEAT YANG SUDAH TERPILIH
@@ -21,7 +24,7 @@ function Order() {
   }, []);
 
   const getDataBooking = async () => {
-    // const result= await axios.get(`/`)
+    // const result = await axios.get(`/`);
     // https://www.notion.so/Modul-Booking-293a2b5a8f2b4d09a8e1f25304592c22
     const DATADUMMY = {
       status: 200,
@@ -60,24 +63,15 @@ function Order() {
     setListBooking(DATADUMMY.data);
   };
 
-  const getDataEvent = () => {
-    // https://www.notion.so/Modul-Event-413ecaad2dd04d4eb0c6c2afc4f50888
-    const DATADUMMY = {
-      status: 200,
-      message: "Success Get Event By Id",
-      data: [
-        {
-          eventId: "e29b8308-d23d-42f0-9071-639403c0c451",
-          name: "We The Fest",
-          category: "Music",
-          location: "Jakarta",
-          detail: "Lorem ipsum dolor amet",
-          dateTimeShow: "2022-01-01 10:00:00",
-          price: 150000,
-        },
-      ],
-    };
-    setDataEvent(DATADUMMY.data);
+  const getDataEvent = async () => {
+    try {
+      const result = await axios.get(`event/${eventId}`);
+      console.log(result);
+
+      setDataEvent(result.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSelectSeat = (seat) => {
