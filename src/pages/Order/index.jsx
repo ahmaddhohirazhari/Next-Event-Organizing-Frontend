@@ -24,43 +24,13 @@ function Order() {
   }, []);
 
   const getDataBooking = async () => {
-    // const result = await axios.get(`/`);
-    // https://www.notion.so/Modul-Booking-293a2b5a8f2b4d09a8e1f25304592c22
-    const DATADUMMY = {
-      status: 200,
-      message: "Success Get Data Section By Event Id",
-      data: [
-        {
-          section: "REG1-1",
-          booked: 20,
-          available: 10,
-          statusFull: false,
-        },
-        {
-          section: "REG1-2",
-          booked: 15,
-          available: 15,
-          statusFull: false,
-        },
-        {
-          section: "REG1-3",
-          booked: 0,
-          available: 30,
-          statusFull: false,
-        },
-        {
-          section: "REG1-4",
-          booked: 30,
-          available: 0,
-          statusFull: true,
-        },
-      ],
-    };
+    const result = await axios.get(`booking/bookingSection/${eventId}`);
+    console.log(result);
     console.log(listBooking);
-    let dataFullSeat = DATADUMMY.data.filter((item) => item.statusFull);
+    let dataFullSeat = result.data.data.filter((item) => item.statusFull);
     dataFullSeat = dataFullSeat.map((item) => item.section);
     setFullSeat(dataFullSeat);
-    setListBooking(DATADUMMY.data);
+    setListBooking(result.data.data);
   };
 
   const getDataEvent = async () => {
@@ -68,7 +38,7 @@ function Order() {
       const result = await axios.get(`event/${eventId}`);
       console.log(result);
 
-      setDataEvent(result.data);
+      setDataEvent(result.data.data);
     } catch (error) {
       console.error(error);
     }
@@ -109,6 +79,36 @@ function Order() {
     setActiveSeat([]);
     setDataOrder([]);
   };
+  const increaseOrderSeat = (section) => {
+    const findData = dataOrder.find((item) => item.seat === section.seat);
+    const price = section.seat.includes("VVIP")
+      ? dataEvent[0].price * 3 // HARGA 3 KALI LIPAT UNTUK VVIP
+      : section.seat.includes("VIP")
+      ? dataEvent[0].price * 2 // HARGA 2 KALI LIPAT UNTUK VIP
+      : dataEvent[0].price; // HARGA TIDAK BERUBAH UNTUK REGULAR
+    findData.qty += 1;
+    findData.price = price * findData.qty;
+    setDataOrder([...dataOrder]);
+  };
+
+  const decreaseOrderSeat = (section) => {
+    const findData = dataOrder.find((item) => item.seat === section.seat);
+    if (findData.qty === 1) {
+      const deleteData = dataOrder.filter((item) => item.seat !== section.seat);
+      const deleteSeat = activeSeat.filter((item) => item !== section.seat);
+      setDataOrder(deleteData);
+      setActiveSeat(deleteSeat);
+    } else {
+      const price = section.seat.includes("VVIP")
+        ? dataEvent[0].price * 3 // HARGA 3 KALI LIPAT UNTUK VVIP
+        : section.seat.includes("VIP")
+        ? dataEvent[0].price * 2 // HARGA 2 KALI LIPAT UNTUK VIP
+        : dataEvent[0].price; // HARGA TIDAK BERUBAH UNTUK REGULAR
+      findData.qty -= 1;
+      findData.price = price * findData.qty;
+      setDataOrder([...dataOrder]);
+    }
+  };
   return (
     <>
       <div className="order_page">
@@ -135,6 +135,9 @@ function Order() {
                     <div className="ticket-scrolling">
                       {dataOrder.map((item, index) => {
                         const data = item.seat.split("-");
+                        const dataSeat = listBooking.filter(
+                          (itemSeat) => itemSeat.section === item.seat
+                        );
                         return (
                           <div className="my-3" key={index}>
                             <img
@@ -150,7 +153,31 @@ function Order() {
                             />
                             <label className="ms-3">
                               Section {data[0]}, Row {data[1]} - $ {item.price}
+                              <br />[
+                              {dataSeat.length > 0
+                                ? dataSeat[0].available
+                                : data[0].includes("VVIP")
+                                ? 10
+                                : data[0].includes("VIP")
+                                ? 20
+                                : 30}{" "}
+                              Seats Available]
                             </label>
+                            <br />
+                            <button
+                              className="btn btn-sm btn-primary"
+                              onClick={() => decreaseOrderSeat(item)}
+                            >
+                              -
+                            </button>
+                            <h5 className="d-inline mx-2">{item.qty}</h5>
+                            <button
+                              className="btn btn-sm btn-primary"
+                              onClick={() => increaseOrderSeat(item)}
+                            >
+                              +
+                            </button>
+                            <hr />
                           </div>
                         );
                       })}
