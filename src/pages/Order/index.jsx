@@ -25,14 +25,18 @@ function Order() {
 
   const getDataBooking = async () => {
     const result = await axios.get(`booking/bookingSection/${eventId}`);
-    console.log(result);
-    console.log(listBooking);
+    console.log(result.data.data);
+
     let dataFullSeat = result.data.data.filter((item) => item.statusFull);
     dataFullSeat = dataFullSeat.map((item) => item.section);
     setFullSeat(dataFullSeat);
     setListBooking(result.data.data);
   };
-
+  console.log(dataEvent);
+  console.log("data order: " + dataOrder);
+  console.log("data listBooking: " + listBooking);
+  console.log("data activeSeat: " + activeSeat);
+  console.log("data fullSeat: " + fullSeat);
   const getDataEvent = async () => {
     try {
       const result = await axios.get(`event/${eventId}`);
@@ -139,7 +143,7 @@ function Order() {
                           (itemSeat) => itemSeat.section === item.seat
                         );
                         return (
-                          <div className="my-3" key={index}>
+                          <div className="my-3 " key={index}>
                             <img
                               src={
                                 data[0].includes("VVIP")
@@ -151,16 +155,16 @@ function Order() {
                               className="ticket-icon"
                               alt="ticket icon"
                             />
-                            <label className="ms-3">
+                            <label className="ms-3 ">
                               Section {data[0]}, Row {data[1]} - $ {item.price}
                               <br />[
                               {dataSeat.length > 0
                                 ? dataSeat[0].available
                                 : data[0].includes("VVIP")
-                                ? 10
+                                ? item.available
                                 : data[0].includes("VIP")
-                                ? 20
-                                : 30}{" "}
+                                ? item.available
+                                : listBooking[0].available}{" "}
                               Seats Available]
                             </label>
                             <br />
