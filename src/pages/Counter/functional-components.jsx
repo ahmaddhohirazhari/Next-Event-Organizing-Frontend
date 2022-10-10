@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function Counter() {
   // let counter1 = 0;
+  const counterData = useSelector((state) => state.counter);
+  console.log(counterData);
+
   const [counter, setCounter] = useState(0);
   // value 1/index 0 = untuk memanggil nilai di dalam variabel
   // value 2/index 1 = untuk merubah nilai di dalam variable tsb

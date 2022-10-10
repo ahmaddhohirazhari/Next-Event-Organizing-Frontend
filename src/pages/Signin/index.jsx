@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
+import { getDataUser } from "../../stores/actions/user";
 
 import "./index.css";
 import Footer from "../../components/Footer";
@@ -8,8 +9,10 @@ import banner from "../../assets/img/banner-signup.png";
 import logo from "../../assets/img/logo.png";
 import google from "../../assets/img/google_logo.png";
 import fb from "../../assets/img/fb_logo.png";
+import { useDispatch } from "react-redux";
 
 function Signin() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -21,6 +24,7 @@ function Signin() {
   const handleLogin = async () => {
     try {
       const result = await axios.post("auth/login", form);
+      dispatch(getDataUser(result.data.data.userId));
 
       localStorage.setItem("idUser", result.data.data.userId);
       localStorage.setItem("token", result.data.data.token);

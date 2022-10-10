@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import axios from "../../utils/axios";
 import logo from "../../assets/img/logo.png";
 
-import avatar from "../../assets/img/john.png";
+import avatar from "../../assets/img/avatar.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
 
 export default function Header() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const isImage = image;
   const isLogin = localStorage.getItem("token");
   const userId = localStorage.getItem("idUser");
 
@@ -19,6 +21,7 @@ export default function Header() {
     try {
       const result = await axios.get(`user/${userId}`);
       setName(result.data.data[0].username);
+      setImage(result.data.data[0].image);
     } catch (error) {
       console.error(error.response);
     }
@@ -31,8 +34,8 @@ export default function Header() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-white">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+        <div className="container-fluid navbar">
+          <a className="navbar-brand logo" href="#">
             <img src={logo} alt="logo" />
           </a>
           <button
@@ -77,7 +80,15 @@ export default function Header() {
               {isLogin ? (
                 <>
                   <div style={{ cursor: "pointer" }}>
-                    <img src={avatar} alt="avatar" />
+                    {isImage ? (
+                      <img
+                        className="avatar"
+                        src={`https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/${image}`}
+                        alt="avatar"
+                      />
+                    ) : (
+                      <img src={avatar} alt="avatar" className="avatar" />
+                    )}
                   </div>
                   <p className="my-auto">{name ? name : "Anonymous"}</p>
                   {/* <p className="my-auto">{name || "Anonymous"}</p> */}
