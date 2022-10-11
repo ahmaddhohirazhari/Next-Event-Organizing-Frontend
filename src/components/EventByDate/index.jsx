@@ -10,14 +10,35 @@ export default function EventByDate(props) {
   const [pagination, setPagination] = useState({});
   const [page, setPage] = useState(1);
 
-  const [dateShow, setDateShow] = useState(moment().format("YYYY,MM,DD")); // 2022-10-04
+  const [dateShow, setDateShow] = useState(
+    moment(new Date()).format("YYYY,MM,DD")
+  ); // 2022-10-04
   const [listDateShow, setListDateShow] = useState([]);
-  console.log(props);
+
+  // DIGUNAKAN UNTUK GET DATA PERTAMA KALI
   useEffect(() => {
     generateDate();
     getDataEvent();
-  }, [dateShow]);
+  }, []);
 
+  // DIGUNAKAN UNTUK GET DATA JIKA ADA PERUBAHAN STATE
+  useEffect(() => {
+    console.log("getData");
+    getDataEvent();
+  }, [page, dateShow, props.searchName]);
+
+  const getDataEvent = async () => {
+    try {
+      const result = await axios.get(
+        `event?page=${page}&searchName=${props.searchName}&searchDateShow=${dateShow}&sort=`
+      );
+
+      setData(result.data.data);
+      setPagination(result.data.pagination);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const generateDate = () => {
     let listDate = [
       moment(dateShow).subtract(2, "days"),
@@ -31,35 +52,6 @@ export default function EventByDate(props) {
 
   const selectDate = (date) => {
     setDateShow(date);
-  };
-
-  console.log("DATE ACTIVE = " + dateShow);
-
-  // DIGUNAKAN UNTUK GET DATA PERTAMA KALI
-  useEffect(() => {
-    getDataEvent();
-  }, []);
-
-  // DIGUNAKAN UNTUK GET DATA JIKA ADA PERUBAHAN STATE
-  useEffect(() => {
-    getDataEvent();
-  }, [page]);
-
-  useEffect(() => {
-    getDataEvent();
-  }, [props.searchName]);
-
-  const getDataEvent = async () => {
-    try {
-      const result = await axios.get(
-        `event?page=${page}&searchName=${props.searchName}&searchDateShow=${dateShow}&sort=`
-      );
-
-      setData(result.data.data);
-      setPagination(result.data.pagination);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const handleDetailEvent = (eventId) => {

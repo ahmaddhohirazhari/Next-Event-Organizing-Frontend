@@ -4,3 +4,9 @@ export const incrementCounter = (data) => {
     data: data,
   };
 };
+
+export const decrementCounter = () => {
+  return {
+    type: "DECREASE",
+  };
+};

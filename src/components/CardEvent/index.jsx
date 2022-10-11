@@ -1,5 +1,5 @@
 import React from "react";
-
+import moment from "moment";
 import "./index.css";
 import attends from "../../assets/img/avatarevent.png";
 
@@ -18,7 +18,7 @@ function CardEvent(props) {
         <div className="card-body card_image text-start text-white">
           <br />
           <p className="card-text card_text_event ">
-            {props.data.dateTimeShow}
+            {moment(props.data.dateTimeShow).format("dddd,DD MMM")}
           </p>
           <h5 className="card-title card_title ">{props.data.name}</h5>
           <img className="attends " src={attends} alt="" />

@@ -1,7 +1,6 @@
 #signin {
   display: flex;
   position: relative;
-  margin-bottom: 50px;
 }
 .signin {
   display: flex;
@@ -44,12 +43,15 @@
   color: #3366ff;
   text-decoration: none;
   text-align: right;
-  margin: 10px;
+  margin: auto;
+  margin-top: -5px;
+  margin-bottom: 10px;
 }
 
 .form_signin {
-  padding: 50px 20px;
+  padding: 20px 20px;
   margin: auto;
+  margin-top: 60px;
 }
 
 .form_input_signin {
@@ -76,6 +78,7 @@
   width: 300px;
 }
 .button_hendle_password {
+  margin: auto;
   margin-top: 10px;
   box-sizing: border-box;
   padding-top: 8px;
@@ -110,7 +113,7 @@
   display: flex;
   gap: 10px;
   justify-content: space-around;
-  margin-top: 20px;
+  margin: auto;
 }
 
 .google {

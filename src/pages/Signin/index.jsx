@@ -26,8 +26,9 @@ function Signin() {
       const result = await axios.post("auth/login", form);
       dispatch(getDataUser(result.data.data.userId));
 
-      localStorage.setItem("idUser", result.data.data.userId);
+      localStorage.setItem("userId", result.data.data.userId);
       localStorage.setItem("token", result.data.data.token);
+      localStorage.setItem("refreshToken", result.data.data.refreshToken);
       alert(result.data.msg);
       navigate("/");
     } catch (error) {
@@ -96,7 +97,7 @@ function Signin() {
             </button>
           </div>
 
-          <h3 className="text-end">
+          <h3 className="text-end forgot_password">
             <a className="forgot_password" href="">
               Forgot Password?
             </a>
@@ -110,7 +111,7 @@ function Signin() {
           />
 
           <br />
-          <div className="logo">
+          <div className="logo mt-3">
             <div>
               <img className="google" src={google} alt="google" />
             </div>

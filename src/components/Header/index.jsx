@@ -5,14 +5,16 @@ import logo from "../../assets/img/logo.png";
 import avatar from "../../assets/img/avatar.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
+// const user = useSelector((state) => state.user);
 
 export default function Header() {
   const navigate = useNavigate();
+  // const user = useSelector((state) => state.user);
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const isImage = image;
   const isLogin = localStorage.getItem("token");
-  const userId = localStorage.getItem("idUser");
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     getData();
@@ -80,15 +82,37 @@ export default function Header() {
               {isLogin ? (
                 <>
                   <div style={{ cursor: "pointer" }}>
-                    {isImage ? (
-                      <img
-                        className="avatar"
-                        src={`https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/${image}`}
-                        alt="avatar"
-                      />
-                    ) : (
-                      <img src={avatar} alt="avatar" className="avatar" />
-                    )}
+                    <div className="dropdown justify-content-center">
+                      {isImage ? (
+                        <img
+                          className="avatar dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton2"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          src={`https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/${image}`}
+                          alt="avatar"
+                        />
+                      ) : (
+                        <img src={avatar} alt="avatar" className="avatar" />
+                      )}
+
+                      <ul
+                        className="dropdown-menu dropdown-menu-white"
+                        aria-labelledby="dropdownMenuButton2"
+                      >
+                        <li>
+                          <a className="dropdown-item" href="#">
+                            Profil
+                          </a>
+                        </li>
+                        <li>
+                          <a className="dropdown-item" href="#">
+                            Logout
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                   <p className="my-auto">{name ? name : "Anonymous"}</p>
                   {/* <p className="my-auto">{name || "Anonymous"}</p> */}

@@ -12,62 +12,44 @@ import attends from "../../assets/img/avatarevent.png";
 function Detail() {
   // [1] GIMANA CARANYA UNTUK MENDAPATKAN ID DARI URL ?
   const { eventId } = useParams();
-  const userId = useState(localStorage.getItem("idUser"));
+  const userId = useState(localStorage.getItem("userId"));
   const navigate = useNavigate();
   const [data, setData] = useState({});
   const [addWishlist, setAddWishlist] = useState(false);
+  const [image, setImage] = useState("");
   const [form, setForm] = useState({
     eventId: eventId,
     userId: userId[0],
   });
-  console.log(userId);
-  console.log(eventId);
-  console.log(setForm);
-  console.log(form);
 
-  // const handleCreateWishlist = async () => {
-  //   try {
-  //     const result = await axios.post("wishlist/", form);
-  //     // localStorage.setItem("userId", result.data.data.userId);
-  //     alert(result.data.msg);
-  //     navigate("/Signin");
-  //   } catch (error) {
-  //     alert(error.response.data.msg);
-  //   }
-  // };
+  // [3] SIMPAN DATA KE STATE
+  useEffect(() => {
+    getDataEvent();
+  }, [image]);
 
   // [2] GET EVENT BY ID
   const getDataEvent = async () => {
     try {
       const result = await axios.get(`event/${eventId}`);
       setData(result.data.data[0]);
-      console.log(result);
+      setImage(result.data.data[0].image);
     } catch (error) {
       console.error(error);
     }
   };
 
-  // [3] SIMPAN DATA KE STATE
-  useEffect(() => {
-    getDataEvent();
-    setData(data);
-  }, []);
-
   const handleBuyTicket = async () => {
     try {
-      // localStorage.setItem("dataEvent", JSON.stringify(data));
       navigate(`/order/${data.eventId}`);
     } catch (error) {
       alert(error.response.data.msg);
-      //   console.error(error.response);
     }
   };
   const handleAddWishlist = async () => {
     try {
       setAddWishlist(!addWishlist); // mengeset nilai kebalikan dari boolean
-      console.log(form);
       const result = await axios.post("wishlist/", form);
-      // localStorage.setItem("userId", result.data.data.userId);
+      setForm(result.data);
       alert(result.data.msg);
     } catch (error) {
       console.error(error.response);
@@ -81,11 +63,13 @@ function Detail() {
         <div className="container text-center">
           <div className="row text-center">
             <div className="col-sm-6">
-              <img
-                id="event"
-                src={`https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/${data.image}`}
-                alt=""
-              />
+              {image && (
+                <img
+                  id="event"
+                  src={`https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/${image}`}
+                  alt=""
+                />
+              )}
               <p className="add mt-5 addWishlist" onClick={handleAddWishlist}>
                 {addWishlist ? (
                   <>
