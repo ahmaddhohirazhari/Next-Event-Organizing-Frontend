@@ -93,13 +93,13 @@ export default function ManageEvent() {
   };
 
   return (
-    <div>
+    <div id="profil">
       <Header />
-      <div className="d-flex manage_event">
+      <div className="d-flex">
         <Sidebar />
-        <main>
+        <main id="main_profil">
           <div className="card container p-4">
-            <h1 className="text-center">ManageEvent</h1>
+            <h2>Change Password</h2>
             <hr />
             {product.message && (
               <div
@@ -164,6 +164,7 @@ export default function ManageEvent() {
           </main>
         </main>
       </div>
+
       <Footer />
     </div>
   );

@@ -1,0 +1,17 @@
+#profil {
+  background-color: #f4f7ff;
+  font-family: "Poppins";
+  font-style: normal;
+
+  color: #373a42;
+}
+
+#main_profil {
+  margin: 50px 30px;
+  margin-left: 50px;
+  padding: 50px;
+  width: 1000px;
+  height: 750px;
+  background: #ffffff;
+  border-radius: 30px;
+}

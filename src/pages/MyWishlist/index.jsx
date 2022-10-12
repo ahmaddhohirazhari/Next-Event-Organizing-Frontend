@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Sidebar from "../../components/Sidebar";
 
-export default function Profil() {
+export default function MyWishList() {
   return (
     <div id="profil">
       <Header />

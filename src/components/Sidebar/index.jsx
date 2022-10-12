@@ -1,46 +1,49 @@
 import React from "react";
-// import "./index.css";
+import avatar from "../../assets/img/avatar.jpg";
+import "./index.css";
 
 export default function Sidebar() {
   return (
-    <div className="sidebar">
-      <div className="nav-brand">
-        {/* <img src="" alt="...">
-            <div className="info">
-                <h2>Hossein Nabi</h2>
-                <p>Front-End Developer</p>
-            </div> */}
+    <div id="sidebar">
+      <div className="profil">
+        <img className="user_profil " src={avatar} alt="" />
       </div>
-      <ul className="sidebar-list-top">
-        <li className="nav-item">
-          <i className="bx bxs-dashboard"></i>
-          <span>Dashboard</span>
+      <ul className="list_sidebar">
+        <li
+          className="mt-3 nav-item "
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i className="bi bi-person-circle me-2 text-secondary "></i>
+          Profil
         </li>
-        <li className="nav-item">
-          <i className="bx bx-bar-chart-alt-2"></i>
-          <span>Analytics</span>
+        <ul className="dropdown-menu ">
+          <li>
+            <a className="dropdown-item" href="#">
+              Action
+            </a>
+          </li>
+          <li>
+            <a className="dropdown-item" href="#">
+              Another action
+            </a>
+          </li>
+          <li>
+            <hr className="dropdown-divider" />
+          </li>
+        </ul>
+        <li className="mt-3">
+          <i className="bi bi-list-check me-2 text-secondary"></i>My Booking
         </li>
-        <li className="nav-item">
-          <i className="bx bx-cart"></i>
-          <span>Orders</span>
+        <li className="mt-3">
+          <i className="bi bi-heart-fill me-2"></i>My Wishlist
         </li>
-        <li className="nav-item">
-          <i className="bx bx-calendar"></i>
-          <span>Calendar</span>
+        <li className="mt-3">
+          <i className="bi bi-gear-fill me-2 text-secondary"></i>Setting
         </li>
-        <li className="nav-item">
-          <i className="bx bx-star"></i>
-          <span>Favorites</span>
-        </li>
-      </ul>
-      <ul className="nav-list-bottom">
-        <li className="nav-item">
-          <i className="bx bx-cog"></i>
-          <span>Settings</span>
-        </li>
-        <li className="nav-item">
-          <i className="bx bx-phone"></i>
-          <span>Contact</span>
+        <li className="mt-3">
+          <i className="bi bi-box-arrow-right me-2 text-danger"></i>Logout
         </li>
       </ul>
     </div>

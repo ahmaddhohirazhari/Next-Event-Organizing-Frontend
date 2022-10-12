@@ -10,7 +10,10 @@ import Order from "./pages/Order";
 import CounterFunc from "./pages/Counter/functional-components";
 import CounterClass from "./pages/Counter/class-component";
 import NotFound from "./pages/NotFound";
-
+import Profil from "./pages/Profil";
+import ChangePassword from "./pages/ChangePassword";
+import MyBooking from "./pages/MyBooking";
+import MyWishlist from "./pages/MyWishlist";
 import ManageEvent from "./pages/ManageEvent";
 
 import PublicRoute from "./utils/route/PublicRoute";
@@ -31,6 +34,10 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/order" element={<Order />} />
+          <Route path="/profil" element={<Profil />} />
+          <Route path="/changePassword" element={<ChangePassword />} />
+          <Route path="/myBooking" element={<MyBooking />} />
+          <Route path="/myWishlist" element={<MyWishlist />} />
         </Route>
 
         {/* PRIVATE ADMIN ROUTE */}

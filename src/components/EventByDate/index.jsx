@@ -16,23 +16,23 @@ export default function EventByDate(props) {
   const [listDateShow, setListDateShow] = useState([]);
 
   // DIGUNAKAN UNTUK GET DATA PERTAMA KALI
-  useEffect(() => {
-    generateDate();
-    getDataEvent();
-  }, []);
+  // useEffect(() => {
+  //   getDataEvent();
+  // }, []);
 
   // DIGUNAKAN UNTUK GET DATA JIKA ADA PERUBAHAN STATE
   useEffect(() => {
     console.log("getData");
+    console.log(dateShow);
+    generateDate();
     getDataEvent();
-  }, [page, dateShow, props.searchName]);
+  }, [page, props.searchName, dateShow]);
 
   const getDataEvent = async () => {
     try {
       const result = await axios.get(
         `event?page=${page}&searchName=${props.searchName}&searchDateShow=${dateShow}&sort=`
       );
-
       setData(result.data.data);
       setPagination(result.data.pagination);
     } catch (error) {
