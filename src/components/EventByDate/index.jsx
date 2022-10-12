@@ -11,7 +11,7 @@ export default function EventByDate(props) {
   const [page, setPage] = useState(1);
 
   const [dateShow, setDateShow] = useState(
-    moment(new Date()).format("YYYY,MM,DD")
+    moment(new Date()).format("YYYY-MM-DD")
   ); // 2022-10-04
   const [listDateShow, setListDateShow] = useState([]);
 
@@ -22,16 +22,17 @@ export default function EventByDate(props) {
 
   // DIGUNAKAN UNTUK GET DATA JIKA ADA PERUBAHAN STATE
   useEffect(() => {
-    console.log("getData");
-    console.log(dateShow);
     generateDate();
     getDataEvent();
   }, [page, props.searchName, dateShow]);
+  console.log(dateShow);
 
   const getDataEvent = async () => {
     try {
       const result = await axios.get(
-        `event?page=${page}&searchName=${props.searchName}&searchDateShow=${dateShow}&sort=`
+        `event?page=${page}&searchName=${
+          props.searchName
+        }&searchDateShow=${dateShow.replace("-", ",")}&sort=`
       );
       setData(result.data.data);
       setPagination(result.data.pagination);
@@ -83,7 +84,7 @@ export default function EventByDate(props) {
                   index === 2 ? "event_date_active event_date" : "event_date"
                 }
                 onClick={() => {
-                  selectDate(moment(item).format("YYYY,MM,DD"));
+                  selectDate(moment(item).format("YYYY-MM-DD"));
                 }}
               >
                 <div>{moment(item).format("DD")}</div>

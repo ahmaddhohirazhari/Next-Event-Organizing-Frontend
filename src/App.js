@@ -32,7 +32,7 @@ function App() {
         {/* PRIVATE ROUTE */}
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/detail/:id" element={<Detail />} />
+          <Route path="/detail/:eventId" element={<Detail />} />
           <Route path="/order" element={<Order />} />
           <Route path="/profil" element={<Profil />} />
           <Route path="/changePassword" element={<ChangePassword />} />

@@ -1,10 +1,29 @@
 import axios from "axios";
 
 const axiosApiIntances = axios.create({
-  baseURL: "https://next-event-organizer-backend.vercel.app/api/",
-  // baseURL: "http://localhost:3001/api/",
+  // baseURL: "https://next-event-organizer-backend.vercel.app/api/",
+  baseURL: "http://localhost:3001/api/",
   // baseURL: "https://event-organizing-backend.vercel.app/api/",
 });
+// Add a request interceptor
+axiosApiIntances.interceptors.request.use(
+  function (config) {
+    // Do something before request is sent
+    const refreshToken = localStorage.getItem("refreshToken");
+    console.log(refreshToken);
+    config.headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      refreshtoken: refreshToken,
+    };
+    console.log(config.headers);
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
+
 // Add a request interceptor
 axiosApiIntances.interceptors.request.use(
   function (config) {
@@ -30,7 +49,6 @@ axiosApiIntances.interceptors.response.use(
     return response;
   },
   function (error) {
-    console.log(error);
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     // JIKA TIDAK MENERAPKAN REFRESH TOKEN
@@ -38,31 +56,26 @@ axiosApiIntances.interceptors.response.use(
     //   localStorage.clear();
     //   window.location.href = "/signin";
     // }
-
+    console.log(error.response.data.msg);
     // JIKA MENERAPKAN REFRESH TOKEN
     if (error.response.status === 403) {
-      console.log(error.response.status);
       console.log(error.response.data.msg);
       if (error.response.data.msg === "jwt expired") {
-        console.log("cek");
         axiosApiIntances
           .post("auth/refresh")
           .then((res) => {
-            console.log(res);
-            alert("dapet token baru");
             localStorage.setItem("token", res.data.data.token);
             localStorage.setItem("refreshToken", res.data.data.refreshToken);
+            console.log(res.data.refreshToken);
             window.location.reload();
           })
           .catch(() => {
             localStorage.clear();
-            console.log("masuk sini");
-            // window.location.href = "/signin";
+            window.location.href = "/signin";
           });
       } else {
-        console.log(error.response.data.msg);
         localStorage.clear();
-        // window.location.href = "/signin";
+        window.location.href = "/signin";
       }
     }
     return Promise.reject(error);
