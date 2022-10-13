@@ -189,7 +189,7 @@ export default function ManageEvent() {
                           />
                           <label className="me-3">Detail</label>
                           <input
-                            type="text"
+                            type="text-area"
                             className="w-100"
                             name="detail"
                             onChange={handleChangeForm}
