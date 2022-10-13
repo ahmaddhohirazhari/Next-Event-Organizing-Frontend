@@ -14,7 +14,7 @@ import Profil from "./pages/Profil";
 import ChangePassword from "./pages/ChangePassword";
 import MyBooking from "./pages/MyBooking";
 import MyWishlist from "./pages/MyWishlist";
-import ManageEvent from "./pages/ManageEvent/index";
+import ManageEvent from "./pages/ManageEvent/event";
 
 import PublicRoute from "./utils/route/PublicRoute";
 import PrivateRoute from "./utils/route/PrivateRoute";

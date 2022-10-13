@@ -42,3 +42,7 @@
   border: 0px;
   border-radius: 40px;
 }
+.button-manage-event {
+  margin-top: 5px;
+  font-size: small;
+}

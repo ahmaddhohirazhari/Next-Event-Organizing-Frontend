@@ -21,7 +21,7 @@ function Detail() {
     eventId: eventId,
     userId: userId[0],
   });
-
+  console.log(setForm);
   // [3] SIMPAN DATA KE STATE
   useEffect(() => {
     getDataEvent();
@@ -47,9 +47,9 @@ function Detail() {
   };
   const handleAddWishlist = async () => {
     try {
-      setAddWishlist(!addWishlist); // mengeset nilai kebalikan dari boolean
+      // mengeset nilai kebalikan dari boolean
       const result = await axios.post("wishlist/", form);
-      setForm(result.data);
+      setAddWishlist(result.data.status === 201);
       alert(result.data.msg);
     } catch (error) {
       console.error(error.response);

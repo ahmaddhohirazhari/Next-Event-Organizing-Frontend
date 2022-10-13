@@ -1,10 +1,10 @@
 import axios from "../../utils/axios";
 
-export const getDataEvent = () => {
+export const getDataEvent = (page) => {
   return {
     type: "GET_DATA_EVENT",
     payload: axios.get(
-      `event?searchName=&sort=&limit=30&page=1&searchDateCreated=`
+      `event?searchName=&sort=&limit=3&page=${page}&searchDateCreated=`
     ),
   };
 };
