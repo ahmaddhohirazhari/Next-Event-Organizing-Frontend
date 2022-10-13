@@ -2,30 +2,26 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
-import CardEvent from "../../components/CardEvent";
-
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getDataProduct,
-  createDataProduct,
-  updateDataProduct,
-} from "../../stores/actions/product";
+import { getDataUser, resetPassword } from "../../stores/actions/password";
 import Sidebar from "../../components/Sidebar";
 
-export default function ManageEvent() {
+export default function ResetPassword() {
   const dispatch = useDispatch();
-  const product = useSelector((state) => state.product);
+  const password = useSelector((state) => state.password);
+  console.log(password);
 
   const [form, setForm] = useState({});
-  const [image, setImage] = useState("");
-  const [productId, setProductId] = useState("");
+  const userId = localStorage.getItem("userId");
+  console.log(userId);
   const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
-    dispatch(getDataProduct());
+    dispatch(getDataUser(userId));
   }, []);
 
   const handleSubmit = (e) => {
+    setIsUpdate(!isUpdate);
     e.preventDefault();
     // HANYA DIGUNAKAN KETIKA INPUT ADA YANG BERTIPE DATA FILE
     const formData = new FormData();
@@ -36,22 +32,14 @@ export default function ManageEvent() {
     // formData.append("price", "123")
     // formData.append("image", File)
 
-    dispatch(createDataProduct(formData)).then(() => {
-      dispatch(getDataProduct());
+    dispatch(resetPassword(formData, userId)).then(() => {
+      dispatch(getDataUser());
+      resetForm();
+      setIsUpdate(false);
       resetForm();
       setTimeout(() => {
         dispatch({ type: "RESET_MESSAGE" });
       }, 3000);
-    });
-  };
-
-  const setUpdate = (data) => {
-    setIsUpdate(true);
-    setProductId(data.id);
-    setForm({
-      name: data.name,
-      price: data.price,
-      image: data.image,
     });
   };
 
@@ -61,87 +49,70 @@ export default function ManageEvent() {
     for (const data in form) {
       formData.append(data, form[data]);
     }
-
-    dispatch(updateDataProduct(formData, productId)).then(() => {
-      dispatch(getDataProduct());
-      setIsUpdate(false);
-      resetForm();
-      setTimeout(() => {
-        dispatch({ type: "RESET_MESSAGE" });
-      }, 3000);
-    });
   };
 
   const resetForm = () => {
     setForm({
-      name: "",
-      price: "",
-      image: "",
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
     });
-    setImage("");
   };
 
   const handleChangeForm = (e) => {
-    const { name, value, files } = e.target;
-
-    if (name === "image") {
-      setForm({ ...form, [name]: files[0] });
-      setImage(URL.createObjectURL(files[0]));
-    } else {
-      setForm({ ...form, [name]: value });
-    }
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   return (
-    <div id="profil">
+    <div className="profil">
       <Header />
       <div className="d-flex">
         <Sidebar />
-        <main id="main_profil">
+        <main className="main_profil">
           <div className="card container p-4">
             <h2>Change Password</h2>
             <hr />
-            {product.message && (
+            {password.message && (
               <div
                 className={
-                  "alert alert-dismissible fade show " + product.isError
+                  "alert alert-dismissible fade show " + password.isError
                     ? "alert-danger"
                     : "alert-primary"
                 }
                 role="alert"
               >
-                {product.message}
+                {password.message}
               </div>
             )}
 
             <form onSubmit={isUpdate ? handleUpdate : handleSubmit}>
-              <label className="me-3">Input Name</label>
+              <label className="me-3">Old Password</label>
               <input
-                type="text"
+                type="password"
                 className="w-100"
-                name="name"
+                name="oldPassword"
                 onChange={handleChangeForm}
-                value={form.name}
+                value={form.oldPassword}
               />
-              <label className="me-3 mt-3">Input Price</label>
+              <label className="me-3 mt-3">New Password</label>
               <input
-                type="text"
+                type="password"
                 className="w-100"
-                name="price"
+                name="newPassword"
                 onChange={handleChangeForm}
-                value={form.price}
+                value={form.newPassword}
               />
-              <label className="me-3 mt-3">Input Image</label>
+              <label className="me-3 mt-3">Confirm Password</label>
               <input
-                type="file"
+                type="password"
                 className="w-100"
-                name="image"
+                name="confirmPassword"
                 onChange={handleChangeForm}
+                value={form.confirmPassword}
               />
-              {image && <img src={image} alt="view image" />}
 
               <button type="submit" className="w-100 my-5 btn btn-primary">
-                {product.isLoading ? (
+                {password.isLoading ? (
                   <div className="spinner-border text-white" role="status">
                     <span className="sr-only"></span>
                   </div>
@@ -151,17 +122,6 @@ export default function ManageEvent() {
               </button>
             </form>
           </div>
-          <main className="container d-flex gap-3 my-5">
-            {product.data.length > 0 ? (
-              product.data.map((item) => (
-                <div key={item.id}>
-                  <CardEvent data={item} setUpdate={setUpdate} />
-                </div>
-              ))
-            ) : (
-              <h1>Data Not Found !</h1>
-            )}
-          </main>
         </main>
       </div>
 

@@ -25,8 +25,8 @@ function Signin() {
     try {
       const result = await axios.post("auth/login", form);
       dispatch(getDataUser(result.data.data.userId));
-
       localStorage.setItem("userId", result.data.data.userId);
+
       localStorage.setItem("token", result.data.data.token);
       localStorage.setItem("refreshToken", result.data.data.refreshToken);
       alert(result.data.msg);

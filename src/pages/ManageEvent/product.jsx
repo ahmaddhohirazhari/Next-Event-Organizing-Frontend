@@ -6,24 +6,24 @@ import CardEvent from "../../components/CardEvent";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  getDataEvent,
-  createDataEvent,
-  updateDataEvent,
-} from "../../stores/actions/event";
+  getDataProduct,
+  createDataProduct,
+  updateDataProduct,
+} from "../../stores/actions/product";
 import Sidebar from "../../components/Sidebar";
 
 export default function ManageEvent() {
   const dispatch = useDispatch();
-  const event = useSelector((state) => state.event);
-  console.log(event);
+  const product = useSelector((state) => state.product);
+  console.log(product);
 
   const [form, setForm] = useState({});
   const [image, setImage] = useState("");
-  const [eventId, setEventId] = useState("");
+  const [productId, setProductId] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
-    dispatch(getDataEvent());
+    dispatch(getDataProduct());
   }, []);
 
   const handleSubmit = (e) => {
@@ -37,8 +37,8 @@ export default function ManageEvent() {
     // formData.append("price", "123")
     // formData.append("image", File)
 
-    dispatch(createDataEvent(formData)).then(() => {
-      dispatch(getDataEvent());
+    dispatch(createDataProduct(formData)).then(() => {
+      dispatch(getDataProduct());
       resetForm();
       setTimeout(() => {
         dispatch({ type: "RESET_MESSAGE" });
@@ -48,13 +48,9 @@ export default function ManageEvent() {
 
   const setUpdate = (data) => {
     setIsUpdate(true);
-    setEventId(data.eventId);
+    setProductId(data.id);
     setForm({
       name: data.name,
-      category: data.category,
-      location: data.location,
-      detail: data.detail,
-      dateTimeShow: data.dateTimeShow,
       price: data.price,
       image: data.image,
     });
@@ -67,8 +63,8 @@ export default function ManageEvent() {
       formData.append(data, form[data]);
     }
 
-    dispatch(updateDataEvent(formData, eventId)).then(() => {
-      dispatch(getDataEvent());
+    dispatch(updateDataProduct(formData, productId)).then(() => {
+      dispatch(getDataProduct());
       setIsUpdate(false);
       resetForm();
       setTimeout(() => {
@@ -106,21 +102,21 @@ export default function ManageEvent() {
           <div className="card container p-4">
             <h1 className="text-center">ManageEvent</h1>
             <hr />
-            {event.message && (
+            {product.message && (
               <div
                 className={
-                  "alert alert-dismissible fade show " + event.isError
+                  "alert alert-dismissible fade show " + product.isError
                     ? "alert-danger"
                     : "alert-primary"
                 }
                 role="alert"
               >
-                {event.message}
+                {product.message}
               </div>
             )}
 
             <form onSubmit={isUpdate ? handleUpdate : handleSubmit}>
-              <label className="me-3">Name</label>
+              <label className="me-3">Input Name</label>
               <input
                 type="text"
                 className="w-100"
@@ -128,41 +124,9 @@ export default function ManageEvent() {
                 onChange={handleChangeForm}
                 value={form.name}
               />
-              <label className="me-3">Category</label>
+              <label className="me-3 mt-3">Input Price</label>
               <input
                 type="text"
-                className="w-100"
-                name="category"
-                onChange={handleChangeForm}
-                value={form.category}
-              />
-              <label className="me-3">Location</label>
-              <input
-                type="text"
-                className="w-100"
-                name="location"
-                onChange={handleChangeForm}
-                value={form.location}
-              />
-              <label className="me-3">Detail</label>
-              <input
-                type="text"
-                className="w-100"
-                name="detail"
-                onChange={handleChangeForm}
-                value={form.detail}
-              />
-              <label className="me-3 mt-3">Date Time Show</label>
-              <input
-                type="date"
-                className="w-100"
-                name="dateTimeShow"
-                onChange={handleChangeForm}
-                value={form.dateTimeShow}
-              />
-              <label className="me-3">Price</label>
-              <input
-                type="number"
                 className="w-100"
                 name="price"
                 onChange={handleChangeForm}
@@ -178,7 +142,7 @@ export default function ManageEvent() {
               {image && <img src={image} alt="view image" />}
 
               <button type="submit" className="w-100 my-5 btn btn-primary">
-                {event.isLoading ? (
+                {product.isLoading ? (
                   <div className="spinner-border text-white" role="status">
                     <span className="sr-only"></span>
                   </div>
@@ -189,14 +153,10 @@ export default function ManageEvent() {
             </form>
           </div>
           <main className="container d-flex gap-3 my-5">
-            {event.data.length > 0 ? (
-              event.data.map((item) => (
+            {product.data.length > 0 ? (
+              product.data.map((item) => (
                 <div key={item.id}>
-                  <CardEvent
-                    data={item}
-                    setUpdate={setUpdate}
-                    manageEvent={true}
-                  />
+                  <CardEvent data={item} setUpdate={setUpdate} />
                 </div>
               ))
             ) : (
