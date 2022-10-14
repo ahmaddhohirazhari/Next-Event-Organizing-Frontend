@@ -31,7 +31,6 @@ function App() {
 
         {/* PRIVATE ROUTE */}
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<LandingPage />} />
           <Route path="/detail/:eventId" element={<Detail />} />
           <Route path="/order" element={<Order />} />
           <Route path="/profil" element={<Profil />} />
@@ -46,6 +45,7 @@ function App() {
         </Route>
 
         {/* PUBLIC ROUTE */}
+        <Route path="/" element={<LandingPage />} />
         <Route path="/counter/func" element={<CounterFunc />} />
         <Route path="/counter/class" element={<CounterClass />} />
         <Route path="/*" element={<NotFound />} />

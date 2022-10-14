@@ -1,12 +1,40 @@
 import React from "react";
-import avatar from "../../assets/img/avatar.jpg";
+import { useSelector } from "react-redux";
 import "./index.css";
+import ModalEvent from "../../components/ModalEvent";
+import avatarDefault from "../../assets/img/avatar.jpg";
 
 export default function Sidebar() {
+  const user = useSelector((state) => state.user);
+  const username = user.data.username;
+  const image = user.data.image;
+  const avatar = `https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/${image}`;
+  const isAdmin = user.data.role === "admin";
   return (
     <div id="sidebar">
       <div className="profil">
-        <img className="user_profil " src={avatar} alt="" />
+        {image ? (
+          <img
+            className="user_profil dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton2"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            src={avatar}
+            alt="avatar"
+          />
+        ) : (
+          <img
+            src={avatarDefault}
+            alt="avatar"
+            className=" dropdown-toggle user_profil"
+            type="button"
+            id="dropdownMenuButton2"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          />
+        )}
+        <p className="ms-4"> {username}</p>
       </div>
       <ul className="list_sidebar">
         <li className="mt-4 menu_profil ">
@@ -53,6 +81,16 @@ export default function Sidebar() {
             </ul>
           </div>
         </li>
+        {isAdmin ? (
+          <>
+            <li className="mt-3">
+              <ModalEvent />
+            </li>
+          </>
+        ) : (
+          ""
+        )}
+
         <li className="mt-3">
           <a href="#" className="link_sidebar menu_profil">
             <i className="bi bi-list-check me-2 text-secondary"></i>My Booking

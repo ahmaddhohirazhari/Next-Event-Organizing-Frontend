@@ -82,6 +82,10 @@ export default function ManageEvent() {
   const resetForm = () => {
     setForm({
       name: "",
+      category: "",
+      location: "",
+      detail: "",
+      dateTimeShow: "",
       price: "",
       image: "",
     });
@@ -252,7 +256,7 @@ export default function ManageEvent() {
           <main className="main-manage-event d-flex gap-3 my-5">
             {event.data.length > 0 ? (
               event.data.map((item) => (
-                <div key={item.id}>
+                <div key={item.eventId}>
                   <CardEvent
                     form={form}
                     image={image}

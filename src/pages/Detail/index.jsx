@@ -45,12 +45,16 @@ function Detail() {
       alert(error.response.data.msg);
     }
   };
+
   const handleAddWishlist = async () => {
     try {
       // mengeset nilai kebalikan dari boolean
       const result = await axios.post("wishlist/", form);
       setAddWishlist(result.data.status === 201);
-      alert(result.data.msg);
+
+      <div className="alert alert-success" role="alert">
+        {result.data.msg}
+      </div>;
     } catch (error) {
       console.error(error.response);
     }

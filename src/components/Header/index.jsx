@@ -1,36 +1,26 @@
-import { useEffect, useState } from "react";
-import axios from "../../utils/axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux/es/exports";
+import "./index.css";
 import logo from "../../assets/img/logo.png";
 
-import avatar from "../../assets/img/avatar.jpg";
-import { Link, useNavigate } from "react-router-dom";
-import "./index.css";
+import avatarDefault from "../../assets/img/avatar.jpg";
+
 // const user = useSelector((state) => state.user);
 
 export default function Header() {
   const navigate = useNavigate();
-  // const user = useSelector((state) => state.user);
-  const [name, setName] = useState("");
-  const [image, setImage] = useState("");
-  const isImage = image;
-  const isLogin = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
+  const user = useSelector((state) => state.user);
+  const name = user.data.username;
+  const avatar = `https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/${user.data.image}`;
 
-  useEffect(() => {
-    getData();
-  }, []);
-  const getData = async () => {
-    try {
-      const result = await axios.get(`user/${userId}`);
-      setName(result.data.data[0].username);
-      setImage(result.data.data[0].image);
-    } catch (error) {
-      console.error(error.response);
-    }
-  };
+  const isImage = user.data.image;
+  const isLogin = localStorage.getItem("token");
 
   const handleNavigate = (nav) => {
     navigate(`/${nav}`);
+  };
+  const handleLogout = () => {
+    localStorage.clear();
   };
 
   return (
@@ -62,7 +52,7 @@ export default function Header() {
                 </a> */}
               </li>
               <li className="nav-item">
-                <Link to="/detail" className="nav-link link_header">
+                <Link to="/manage-event" className="nav-link link_header">
                   Create Event
                 </Link>
                 {/* <a className="nav-link" href="/detail">
@@ -90,11 +80,19 @@ export default function Header() {
                           id="dropdownMenuButton2"
                           data-bs-toggle="dropdown"
                           aria-expanded="false"
-                          src={`https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/${image}`}
+                          src={avatar}
                           alt="avatar"
                         />
                       ) : (
-                        <img src={avatar} alt="avatar" className="avatar" />
+                        <img
+                          src={avatarDefault}
+                          alt="avatar"
+                          className="avatar dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton2"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        />
                       )}
 
                       <ul
@@ -102,12 +100,16 @@ export default function Header() {
                         aria-labelledby="dropdownMenuButton2"
                       >
                         <li>
-                          <a className="dropdown-item" href="#">
+                          <Link to="/Profil" className="nav-link link_header">
                             Profil
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a className="dropdown-item" href="#">
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={handleLogout}
+                          >
                             Logout
                           </a>
                         </li>
@@ -115,7 +117,6 @@ export default function Header() {
                     </div>
                   </div>
                   <p className="my-auto">{name ? name : "Anonymous"}</p>
-                  {/* <p className="my-auto">{name || "Anonymous"}</p> */}
                 </>
               ) : (
                 <>

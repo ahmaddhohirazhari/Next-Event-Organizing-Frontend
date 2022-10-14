@@ -12,7 +12,7 @@ export default function EventByDate(props) {
 
   const [dateShow, setDateShow] = useState(
     moment(new Date()).format("YYYY-MM-DD")
-  ); // 2022-10-04
+  );
   const [listDateShow, setListDateShow] = useState([]);
 
   // DIGUNAKAN UNTUK GET DATA PERTAMA KALI
@@ -25,7 +25,6 @@ export default function EventByDate(props) {
     generateDate();
     getDataEvent();
   }, [page, props.searchName, dateShow]);
-  console.log(dateShow);
 
   const getDataEvent = async () => {
     try {
@@ -37,7 +36,7 @@ export default function EventByDate(props) {
       setData(result.data.data);
       setPagination(result.data.pagination);
     } catch (error) {
-      console.error(error);
+      return error.error;
     }
   };
   const generateDate = () => {
