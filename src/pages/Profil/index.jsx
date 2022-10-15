@@ -192,15 +192,18 @@ export default function Profil() {
                   {user.message}
                 </div>
               )}
-              <form onSubmit={handleUpdateImage}>
-                <div className="button-choose">
+              <form onSubmit={handleUpdateImage} className="text-center">
+                <div className="button-choose text-center">
                   <input
                     type="file"
                     name="image"
                     onChange={handleChangeFormImage}
                   />
                 </div>
-                <button type="submit" className=" my-5 btn btn-primary">
+                <button
+                  type="submit"
+                  className=" my-5 btn btn-primary choose-photo"
+                >
                   {user.isLoading ? (
                     <div className="spinner-border text-white" role="status">
                       <span className="sr-only"></span>

@@ -1,15 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./index.css";
 import ModalEvent from "../../components/ModalEvent";
 import avatarDefault from "../../assets/img/avatar.jpg";
-
 export default function Sidebar() {
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const username = user.data.username;
   const image = user.data.image;
   const avatar = `https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/${image}`;
   const isAdmin = user.data.role === "admin";
+
+  const handleChangePassword = () => {
+    navigate("/ChangePassword");
+  };
+
+  const handleEditProfil = () => {
+    navigate("/profil");
+  };
   return (
     <div id="sidebar">
       <div className="profil">
@@ -66,6 +75,7 @@ export default function Sidebar() {
                 <a
                   href="#"
                   className="link-dark rounded ms-3 mt-3 sub_menu menu_profil link_sidebar"
+                  onClick={handleEditProfil}
                 >
                   <i className="bi bi-pencil-square me-3"></i>Edit Profil
                 </a>
@@ -74,6 +84,7 @@ export default function Sidebar() {
                 <a
                   href="#"
                   className="link-dark rounded ms-3 sub_menu menu_profil link_sidebar"
+                  onClick={handleChangePassword}
                 >
                   <i className="bi bi-lock-fill me-3"></i>Change Password
                 </a>

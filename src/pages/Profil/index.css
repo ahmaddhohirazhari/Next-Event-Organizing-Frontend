@@ -60,7 +60,7 @@
   margin-top: 30px;
 }
 .choose-photo {
-  /* display: flex; */
+  justify-content: center;
   text-align: center;
   box-sizing: border-box;
   width: 225px;

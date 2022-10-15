@@ -76,6 +76,30 @@ const user = (state = initialState, action) => {
         message: action.payload.data.msg,
       };
     }
+    case "UPDATE_PASSWORD_PENDING": {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        message: "",
+      };
+    }
+    case "UPDATE_PASSWORD_FULFILLED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        message: action.payload.data.msg,
+      };
+    }
+    case "UPDATE_PASSWORD_REJECTED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        message: action.payload.data.msg,
+      };
+    }
     default: {
       return state;
     }
