@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import "./index.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import "./index.css";
-
+import Sidebar from "../../components/Sidebar";
 import CardEvent from "../../components/CardEvent";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -11,18 +11,18 @@ import {
   createDataEvent,
   updateDataEvent,
 } from "../../stores/actions/event";
-import Sidebar from "../../components/Sidebar";
 
 export default function ManageEvent() {
   const dispatch = useDispatch();
   const event = useSelector((state) => state.event);
-  console.log(event);
+  console.log(event.message);
 
   const [form, setForm] = useState({});
   const [image, setImage] = useState("");
   const [eventId, setEventId] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
   const [page, setPage] = useState(1);
+  console.log(event.message);
 
   useEffect(() => {
     dispatch(getDataEvent(page));
@@ -75,7 +75,7 @@ export default function ManageEvent() {
       resetForm();
       setTimeout(() => {
         dispatch({ type: "RESET_MESSAGE" });
-      }, 3000);
+      }, 30000);
     });
   };
 
@@ -235,7 +235,7 @@ export default function ManageEvent() {
                                 <span className="sr-only"></span>
                               </div>
                             ) : (
-                              <div>{isUpdate ? "Create" : "Create"}</div>
+                              <div>{isUpdate ? "Update" : "Save"}</div>
                             )}
                           </button>
                           {image && (

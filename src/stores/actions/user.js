@@ -5,8 +5,11 @@ export const getDataUser = (userId) => {
     type: "GET_USER_BY_ID",
     payload: axios.get(`user/${userId}`),
   };
-  //   return {
-  //     type: "GET_USER_BY_ID",
-  //     payload: axios.get(`user/${id}`),
-  //   };
+};
+
+export const updateDataUser = (data) => {
+  return {
+    type: "UPDATE_DATA_USER",
+    payload: axios.patch(`user/updateUser/`, data),
+  };
 };

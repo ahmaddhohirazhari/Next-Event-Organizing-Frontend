@@ -28,6 +28,30 @@ const user = (state = initialState, action) => {
         data: {},
       };
     }
+    case "UPDATE_DATA_USER_PENDING": {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        message: "",
+      };
+    }
+    case "UPDATE_DATA_USER_FULFILLED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        message: action.payload.data.msg,
+      };
+    }
+    case "UPDATE_DATA_USER_REJECTED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        message: action.payload.data.msg,
+      };
+    }
     default: {
       return state;
     }
