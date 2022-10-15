@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import { getDataUser } from "../../stores/actions/user";
-
+import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import Footer from "../../components/Footer";
 import banner from "../../assets/img/banner-signup.png";
@@ -102,13 +102,14 @@ function Signin() {
               Forgot Password?
             </a>
           </h3>
-
-          <input
-            className="submit_signin"
-            type="submit"
-            value="Sign In"
-            onClick={handleLogin}
-          />
+          <div>
+            <input
+              className="submit_signin"
+              type="submit"
+              value="Sign In"
+              onClick={handleLogin}
+            />
+          </div>
 
           <br />
           <div className="logo mt-3">
