@@ -10,6 +10,7 @@ import {
   getDataEvent,
   createDataEvent,
   updateDataEvent,
+  deleteDataEvent,
 } from "../../stores/actions/event";
 
 export default function ManageEvent() {
@@ -77,6 +78,10 @@ export default function ManageEvent() {
         dispatch({ type: "RESET_MESSAGE" });
       }, 30000);
     });
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteDataEvent(eventId));
   };
 
   const resetForm = () => {
@@ -258,6 +263,7 @@ export default function ManageEvent() {
               event.data.map((item) => (
                 <div key={item.eventId}>
                   <CardEvent
+                    handleDelete={handleDelete}
                     form={form}
                     image={image}
                     event={event}

@@ -13,3 +13,10 @@ export const updateDataUser = (data) => {
     payload: axios.patch(`user/updateUser/`, data),
   };
 };
+
+export const updateImageUser = (data) => {
+  return {
+    type: "UPDATE_IMAGE_USER",
+    payload: axios.patch(`user/updateImage`, data),
+  };
+};

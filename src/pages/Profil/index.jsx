@@ -6,46 +6,49 @@ import Sidebar from "../../components/Sidebar";
 import avatar from "../../assets/img/avatar.jpg";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getDataUser, updateDataUser } from "../../stores/actions/user";
+import {
+  getDataUser,
+  updateDataUser,
+  updateImageUser,
+} from "../../stores/actions/user";
 
 export default function Profil() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const userId = user.data.userId;
-  console.log(userId);
   const [form, setForm] = useState(user.data);
 
-  // const [isUpdate, setIsUpdate] = useState(false);
+  const [formImage, setFormImage] = useState(user.data);
+  const [image, setImage] = useState(
+    `https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/${user.data.image}`
+  );
 
   useEffect(() => {
+    setImage(image);
     dispatch(getDataUser(userId));
   }, []);
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateDataUser(form, userId));
+    dispatch(updateDataUser(form));
   };
 
-  // const resetForm = () => {
-  //   setForm({
-  //     name: "",
-  //     username: "",
-  //     email: "",
-  //     phoneNumber: "",
-  //     gender: "",
-  //     profession: "",
-  //     nationality: "",
-  //     dateOfBirth: "",
-  //   });
-  // };
-  // const isFemale = user.data.gender === "female";
-  // const isMale = user.data.gender === "male";
-
-  // const showForm = () => {
-  //   setIsUpdate(!isUpdate);
-  // };
   const handleChangeForm = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleUpdateImage = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    for (const data in formImage) {
+      formData.append(data, formImage[data]);
+    }
+    dispatch(updateImageUser(formData));
+  };
+
+  const handleChangeFormImage = (e) => {
+    const { name, files } = e.target;
+    setFormImage({ ...formImage, [name]: files[0] });
   };
 
   return (
@@ -61,7 +64,7 @@ export default function Profil() {
                 <div
                   className={
                     "alert alert-dismissible fade show " + user.isError
-                      ? "alert-danger"
+                      ? "alert-success"
                       : "alert-primary"
                   }
                   role="alert"
@@ -168,14 +171,46 @@ export default function Profil() {
             </div>
             <div className="col-sm-4 form-image-user">
               <div className="image_profil">
-                <img className="avatar-profil" src={avatar} alt="" />
+                {image ? (
+                  <>
+                    <img src={image} alt="image" className="avatar-profil" />
+                  </>
+                ) : (
+                  <img className="avatar-profil" src={avatar} alt="" />
+                )}
               </div>
               <br />
-              <div className="button-choose">
-                <button className="choose-photo">Choose Photo</button>
-              </div>
+              {user.message && (
+                <div
+                  className={
+                    "alert alert-dismissible fade show " + user.isError
+                      ? "alert-success"
+                      : "alert-primary"
+                  }
+                  role="alert"
+                >
+                  {user.message}
+                </div>
+              )}
+              <form onSubmit={handleUpdateImage}>
+                <div className="button-choose">
+                  <input
+                    type="file"
+                    name="image"
+                    onChange={handleChangeFormImage}
+                  />
+                </div>
+                <button type="submit" className=" my-5 btn btn-primary">
+                  {user.isLoading ? (
+                    <div className="spinner-border text-white" role="status">
+                      <span className="sr-only"></span>
+                    </div>
+                  ) : (
+                    <div>Save</div>
+                  )}
+                </button>
+              </form>
             </div>
-            <button className="btn btn-primary save-profil ">Save</button>
           </div>
         </main>
       </div>

@@ -2,14 +2,23 @@ import React from "react";
 import moment from "moment";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteDataEvent } from "../../stores/actions/event";
 
 import attends from "../../assets/img/avatarevent.png";
 
 function CardEvent(props) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleDetail = () => {
     navigate(`/detail/${props.data.eventId}`);
   };
+  const deleteEvent = () => {
+    dispatch(deleteDataEvent(props.data.eventId));
+    console.log(props.data.eventId);
+  };
+
   return (
     <>
       {props.manageEvent ? (
@@ -176,7 +185,7 @@ function CardEvent(props) {
                   </div>
                   <button
                     className="btn btn-danger button-manage-event"
-                    onClick={handleDetail}
+                    onClick={deleteEvent}
                   >
                     Delete
                   </button>
