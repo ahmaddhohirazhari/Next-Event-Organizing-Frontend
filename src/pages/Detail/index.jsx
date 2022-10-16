@@ -1,30 +1,33 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
-import { useNavigate } from "react-router-dom";
 import "./index.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 import map from "../../assets/img/map.png";
 import attends from "../../assets/img/avatarevent.png";
+import { useSelector } from "react-redux";
 
 function Detail() {
   // [1] GIMANA CARANYA UNTUK MENDAPATKAN ID DARI URL ?
   const { eventId } = useParams();
-  const userId = useState(localStorage.getItem("userId"));
+  const user = useSelector((state) => state.user);
+  const userId = user.data.userId;
   const navigate = useNavigate();
+
   const [data, setData] = useState({});
   const [addWishlist, setAddWishlist] = useState(false);
   const [image, setImage] = useState("");
   const [form, setForm] = useState({
     eventId: eventId,
-    userId: userId[0],
+    userId: userId,
   });
   console.log(setForm);
   // [3] SIMPAN DATA KE STATE
   useEffect(() => {
     getDataEvent();
+    cekWishlist();
   }, [image]);
 
   // [2] GET EVENT BY ID
@@ -38,25 +41,35 @@ function Detail() {
     }
   };
 
-  const handleBuyTicket = async () => {
-    try {
-      navigate(`/order/${data.eventId}`);
-    } catch (error) {
-      alert(error.response.data.msg);
-    }
+  const handleBuyTicket = () => {
+    navigate("/order", {
+      state: {
+        eventId: eventId,
+      },
+    });
   };
 
   const handleAddWishlist = async () => {
     try {
       // mengeset nilai kebalikan dari boolean
       const result = await axios.post("wishlist/", form);
-      setAddWishlist(result.data.status === 201);
-
-      <div className="alert alert-success" role="alert">
-        {result.data.msg}
-      </div>;
+      alert(result.data.msg);
+      cekWishlist();
     } catch (error) {
       console.error(error.response);
+    }
+  };
+
+  const cekWishlist = async () => {
+    const cek = await axios.get(`wishlist/${userId}`);
+    const searchWishlist = cek.data.data.filter(
+      (item) => eventId == item.eventId
+    );
+    console.log(searchWishlist);
+    if (searchWishlist.length > 0) {
+      setAddWishlist(true);
+    } else {
+      setAddWishlist(false);
     }
   };
   // [4] LETAKAN DATA YANG SUDAH DINAMIS

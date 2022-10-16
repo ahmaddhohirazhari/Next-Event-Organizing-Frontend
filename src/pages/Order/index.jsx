@@ -1,17 +1,20 @@
 import React from "react";
 import "./index.css";
 import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import SeatPosition from "../../components/Seatposition";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import ticketREG from "../../assets/img/REG.png";
 import ticketVIP from "../../assets/img/VIP.png";
 import ticketVVIP from "../../assets/img/VVIP.png";
-import { useParams } from "react-router-dom";
 import axios from "../../utils/axios";
 
 function Order() {
-  const { eventId } = useParams();
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  console.log(state);
+
   const [fullSeat, setFullSeat] = useState([]); // DI GUNAKAN UNTUK MENAMPUNG SEAT YANG FULL
   const [activeSeat, setActiveSeat] = useState([]); // DIGUNAKAN UNTUK MENAMPUNG SEAT YANG SEDANG DIPILIH
   const [dataOrder, setDataOrder] = useState([]); // DIGUNAKAN UNTUK MENAMPUNG SEAT YANG SUDAH TERPILIH
@@ -24,24 +27,18 @@ function Order() {
   }, []);
 
   const getDataBooking = async () => {
-    const result = await axios.get(`booking/bookingSection/${eventId}`);
-    console.log(result.data.data);
+    const result = await axios.get(`/booking/list`);
+    console.log(result);
 
     let dataFullSeat = result.data.data.filter((item) => item.statusFull);
     dataFullSeat = dataFullSeat.map((item) => item.section);
     setFullSeat(dataFullSeat);
     setListBooking(result.data.data);
   };
-  console.log(dataEvent);
-  console.log("data order: " + dataOrder);
-  console.log("data listBooking: " + listBooking);
-  console.log("data activeSeat: " + activeSeat);
-  console.log("data fullSeat: " + fullSeat);
+
   const getDataEvent = async () => {
     try {
-      const result = await axios.get(`event/${eventId}`);
-      console.log(result);
-
+      const result = await axios.get(`event/${state.eventId}`);
       setDataEvent(result.data.data);
     } catch (error) {
       console.error(error);
@@ -77,12 +74,19 @@ function Order() {
 
   const handleOrderSeat = () => {
     console.log(dataOrder);
+    navigate("/payment", {
+      state: {
+        dataOrder,
+        eventId: state.eventId,
+      },
+    });
   };
 
   const clearOrderSeat = () => {
     setActiveSeat([]);
     setDataOrder([]);
   };
+
   const increaseOrderSeat = (section) => {
     const findData = dataOrder.find((item) => item.seat === section.seat);
     const price = section.seat.includes("VVIP")
@@ -118,14 +122,14 @@ function Order() {
       <div className="order_page">
         <Header />
         <div className=" order ">
-          <div className="container ">
-            <div className="card card_order">
+          <div className="container">
+            <div className="card">
               <div className="row m-5">
                 <div className="col-sm-12 col-md-7 p-0 p-md-4">
-                  <div className="rotate-seat roteate_seat_order text-center">
+                  <div className="rotate-seat">
                     <SeatPosition
-                      width="100%" // MEMBERIKAN BESARAN PADA POLA SEAT
-                      height="100%" // MEMBERIKAN TINGGI PADA POLA SEAT
+                      width="90%" // MEMBERIKAN BESARAN PADA POLA SEAT
+                      height="90%" // MEMBERIKAN TINGGI PADA POLA SEAT
                       fullSeat={fullSeat}
                       activeSeat={activeSeat}
                       handleSelectSeat={handleSelectSeat}
@@ -143,7 +147,7 @@ function Order() {
                           (itemSeat) => itemSeat.section === item.seat
                         );
                         return (
-                          <div className="my-3 " key={index}>
+                          <div className="my-3" key={index}>
                             <img
                               src={
                                 data[0].includes("VVIP")
@@ -155,16 +159,16 @@ function Order() {
                               className="ticket-icon"
                               alt="ticket icon"
                             />
-                            <label className="ms-3 ">
+                            <label className="ms-3">
                               Section {data[0]}, Row {data[1]} - $ {item.price}
                               <br />[
                               {dataSeat.length > 0
                                 ? dataSeat[0].available
                                 : data[0].includes("VVIP")
-                                ? item.available
+                                ? 10
                                 : data[0].includes("VIP")
-                                ? item.available
-                                : listBooking[0].available}{" "}
+                                ? 20
+                                : 30}{" "}
                               Seats Available]
                             </label>
                             <br />
@@ -192,17 +196,14 @@ function Order() {
                     </div>
                   )}
                   <hr />
-                  <div className="d-grid gap-2 justify-content-center">
+                  <div className="d-grid gap-2">
                     <button
-                      className="btn btn-primary checkout_button_order"
+                      className="btn btn-primary"
                       onClick={handleOrderSeat}
                     >
                       Checkout
                     </button>
-                    <button
-                      className="btn btn-danger checkout_button_order"
-                      onClick={clearOrderSeat}
-                    >
+                    <button className="btn btn-danger" onClick={clearOrderSeat}>
                       Clear All
                     </button>
                   </div>
@@ -211,7 +212,6 @@ function Order() {
             </div>
           </div>
         </div>
-
         <Footer />
       </div>
     </>

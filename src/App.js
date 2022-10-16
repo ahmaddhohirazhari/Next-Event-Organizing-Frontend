@@ -15,6 +15,7 @@ import ChangePassword from "./pages/ChangePassword";
 import MyBooking from "./pages/MyBooking";
 import MyWishlist from "./pages/MyWishlist";
 import ManageEvent from "./pages/ManageEvent/event";
+import Payment from "./pages/Payment";
 
 import PublicRoute from "./utils/route/PublicRoute";
 import PrivateRoute from "./utils/route/PrivateRoute";
@@ -33,6 +34,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/detail/:eventId" element={<Detail />} />
           <Route path="/order" element={<Order />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/profil" element={<Profil />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/myBooking" element={<MyBooking />} />
