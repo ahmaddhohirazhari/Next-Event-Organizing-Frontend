@@ -13,7 +13,7 @@ import NotFound from "./pages/NotFound";
 import Profil from "./pages/Profil";
 import ChangePassword from "./pages/ChangePassword";
 import MyBooking from "./pages/MyBooking";
-import MyWishlist from "./pages/MyWishlist";
+import MyWishList from "./pages/MyWishlist";
 import ManageEvent from "./pages/ManageEvent/event";
 import Payment from "./pages/Payment";
 
@@ -38,7 +38,7 @@ function App() {
           <Route path="/profil" element={<Profil />} />
           <Route path="/changePassword" element={<ChangePassword />} />
           <Route path="/myBooking" element={<MyBooking />} />
-          <Route path="/myWishlist" element={<MyWishlist />} />
+          <Route path="/myWishlist" element={<MyWishList />} />
         </Route>
 
         {/* PRIVATE ADMIN ROUTE */}

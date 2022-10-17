@@ -14,7 +14,8 @@ function CardEvent(props) {
   const handleDetail = () => {
     navigate(`/detail/${props.data.eventId}`);
   };
-  const deleteEvent = () => {
+  const deleteEvent = (e) => {
+    e.preventDefault();
     dispatch(deleteDataEvent(props.data.eventId));
     console.log(props.data.eventId);
   };
@@ -186,6 +187,7 @@ function CardEvent(props) {
                   <button
                     className="btn btn-danger button-manage-event"
                     onClick={deleteEvent}
+                    type="button"
                   >
                     Delete
                   </button>

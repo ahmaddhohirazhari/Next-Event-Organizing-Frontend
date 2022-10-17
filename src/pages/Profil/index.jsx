@@ -17,20 +17,23 @@ export default function Profil() {
   const user = useSelector((state) => state.user);
   const userId = user.data.userId;
   const [form, setForm] = useState(user.data);
-
+  const urlClodinary =
+    "https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/";
   const [formImage, setFormImage] = useState(user.data);
   const [image, setImage] = useState(
     `https://res.cloudinary.com/dhohircloud/image/upload/v1663957109/${user.data.image}`
   );
 
   useEffect(() => {
-    setImage(image);
     dispatch(getDataUser(userId));
+    setImage(image);
   }, []);
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateDataUser(form));
+    dispatch(updateDataUser(form)).then(() => {
+      dispatch(getDataUser(userId));
+    });
   };
 
   const handleChangeForm = (e) => {
@@ -43,7 +46,9 @@ export default function Profil() {
     for (const data in formImage) {
       formData.append(data, formImage[data]);
     }
-    dispatch(updateImageUser(formData));
+    dispatch(updateImageUser(formData)).then(() => {
+      dispatch(getDataUser(userId));
+    });
   };
 
   const handleChangeFormImage = (e) => {
@@ -171,9 +176,13 @@ export default function Profil() {
             </div>
             <div className="col-sm-4 form-image-user">
               <div className="image_profil">
-                {image ? (
+                {user.data.image ? (
                   <>
-                    <img src={image} alt="image" className="avatar-profil" />
+                    <img
+                      src={urlClodinary + user.data.image}
+                      alt="image"
+                      className="avatar-profil"
+                    />
                   </>
                 ) : (
                   <img className="avatar-profil" src={avatar} alt="" />
@@ -192,7 +201,7 @@ export default function Profil() {
                   {user.message}
                 </div>
               )}
-              <form onSubmit={handleUpdateImage} className="text-center">
+              <div className="text-center">
                 <div className="button-choose text-center">
                   <input
                     type="file"
@@ -201,7 +210,8 @@ export default function Profil() {
                   />
                 </div>
                 <button
-                  type="submit"
+                  onClick={handleUpdateImage}
+                  type="button"
                   className=" my-5 btn btn-primary choose-photo"
                 >
                   {user.isLoading ? (
@@ -212,7 +222,7 @@ export default function Profil() {
                     <div>Save</div>
                   )}
                 </button>
-              </form>
+              </div>
             </div>
           </div>
         </main>

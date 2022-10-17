@@ -27,7 +27,7 @@ function Order() {
   }, []);
 
   const getDataBooking = async () => {
-    const result = await axios.get(`/booking/list`);
+    const result = await axios.get(`/booking/bookingSection/${state.eventId}`);
     console.log(result);
 
     let dataFullSeat = result.data.data.filter((item) => item.statusFull);
@@ -35,7 +35,11 @@ function Order() {
     setFullSeat(dataFullSeat);
     setListBooking(result.data.data);
   };
-
+  console.log(
+    listBooking.filter((e) => {
+      e.available.includes("REG");
+    })
+  );
   const getDataEvent = async () => {
     try {
       const result = await axios.get(`event/${state.eventId}`);

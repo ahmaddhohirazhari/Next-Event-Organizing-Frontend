@@ -19,6 +19,14 @@ export default function Sidebar() {
   const handleEditProfil = () => {
     navigate("/profil");
   };
+
+  const handleBooking = () => {
+    navigate("/myBooking");
+  };
+
+  const handleWishlist = () => {
+    navigate("/myWishlist");
+  };
   return (
     <div id="sidebar">
       <div className="profil">
@@ -103,12 +111,20 @@ export default function Sidebar() {
         )}
 
         <li className="mt-3">
-          <a href="#" className="link_sidebar menu_profil">
+          <a
+            href="#"
+            className="link_sidebar menu_profil"
+            onClick={handleBooking}
+          >
             <i className="bi bi-list-check me-2 text-secondary"></i>My Booking
           </a>
         </li>
         <li className="mt-4">
-          <a href="#" className="link_sidebar menu_profil">
+          <a
+            href="#"
+            className="link_sidebar menu_profil"
+            onClick={handleWishlist}
+          >
             <i className="bi bi-heart-fill me-2"></i>My Wishlist
           </a>
         </li>

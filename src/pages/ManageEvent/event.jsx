@@ -23,7 +23,6 @@ export default function ManageEvent() {
   const [eventId, setEventId] = useState("");
   const [isUpdate, setIsUpdate] = useState(false);
   const [page, setPage] = useState(1);
-  console.log(event.message);
 
   useEffect(() => {
     dispatch(getDataEvent(page));

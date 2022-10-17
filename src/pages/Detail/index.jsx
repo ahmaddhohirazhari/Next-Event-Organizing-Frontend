@@ -51,7 +51,6 @@ function Detail() {
 
   const handleAddWishlist = async () => {
     try {
-      // mengeset nilai kebalikan dari boolean
       const result = await axios.post("wishlist/", form);
       alert(result.data.msg);
       cekWishlist();
