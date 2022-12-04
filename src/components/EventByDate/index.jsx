@@ -4,7 +4,7 @@ import CardEvent from "../../components/CardEvent";
 import { useNavigate } from "react-router-dom";
 import axios from "../../utils/axios";
 import "./index.css";
-export default function EventByDate(props) {
+export default function EventByDate() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -24,7 +24,7 @@ export default function EventByDate(props) {
   useEffect(() => {
     generateDate();
     getDataEvent();
-  }, [page, props.searchName, dateShow]);
+  }, [page]);
 
   const getDataEvent = async () => {
     try {
