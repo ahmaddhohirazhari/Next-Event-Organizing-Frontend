@@ -26,7 +26,7 @@ export default function EventByDate(props) {
     getDataEvent();
   }, [page, props.searchName, dateShow]);
 
-  const getDataEvent = async () => {
+  const getDataEvent = async (props) => {
     try {
       const result = await axios.get(
         `event?page=${page}&searchName=${props.searchName}&searchDateShow=&sort=`
