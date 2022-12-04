@@ -26,10 +26,10 @@ export default function EventByDate(props) {
     getDataEvent();
   }, [page, props.searchName, dateShow]);
 
-  const getDataEvent = async (props) => {
+  const getDataEvent = async () => {
     try {
       const result = await axios.get(
-        `event?page=${page}&searchName=${props.searchName}&searchDateShow=&sort=`
+        `event?page=${page}&searchName=&searchDateShow=&sort=`
       );
       setData(result.data.data);
       setPagination(result.data.pagination);
