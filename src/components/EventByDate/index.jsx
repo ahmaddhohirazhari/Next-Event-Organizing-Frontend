@@ -24,7 +24,7 @@ export default function EventByDate() {
   useEffect(() => {
     generateDate();
     getEvent();
-  }, [page]);
+  }, []);
 
   const getEvent = async () => {
     try {
