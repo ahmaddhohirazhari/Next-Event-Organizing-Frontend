@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import CardEvent from "../../components/CardEvent";
 import { useNavigate } from "react-router-dom";
-import axios from "../../utils/axios";
+
 import "./index.css";
+import { getDataEvent } from "../../stores/actions/event";
+import { useDispatch } from "react-redux/es/exports";
 export default function EventByDate() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({});
   const [page, setPage] = useState(1);
+  const dispacth = useDispatch();
 
   const [dateShow, setDateShow] = useState(
     moment(new Date()).format("YYYY-MM-DD")
@@ -16,21 +19,16 @@ export default function EventByDate() {
   const [listDateShow, setListDateShow] = useState([]);
 
   // DIGUNAKAN UNTUK GET DATA PERTAMA KALI
-  // useEffect(() => {
-  //   getDataEvent();
-  // }, []);
 
   // DIGUNAKAN UNTUK GET DATA JIKA ADA PERUBAHAN STATE
   useEffect(() => {
     generateDate();
-    getDataEvent();
+    getEvent();
   }, [page]);
 
-  const getDataEvent = async () => {
+  const getEvent = async () => {
     try {
-      const result = await axios.get(
-        `event?page=${page}&searchName=&searchDateShow=&sort=`
-      );
+      const result = await dispacth(getDataEvent());
       setData(result.data.data);
       setPagination(result.data.pagination);
     } catch (error) {
