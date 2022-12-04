@@ -79,8 +79,10 @@ export default function ManageEvent() {
     });
   };
 
-  const handleDelete = () => {
-    dispatch(deleteDataEvent(eventId));
+  const handleDelete = (id) => {
+    dispatch(deleteDataEvent(id)).then(() => {
+      dispatch(getDataEvent());
+    });
   };
 
   const resetForm = () => {

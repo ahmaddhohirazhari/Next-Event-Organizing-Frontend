@@ -35,11 +35,11 @@ function Order() {
     setFullSeat(dataFullSeat);
     setListBooking(result.data.data);
   };
-  console.log(
-    listBooking.filter((e) => {
-      e.available.includes("REG");
-    })
-  );
+  // console.log(
+  //   listBooking.filter((e) => {
+  //     e.available.includes("REG");
+  //   })
+  // );
   const getDataEvent = async () => {
     try {
       const result = await axios.get(`event/${state.eventId}`);
@@ -76,12 +76,21 @@ function Order() {
     }
   };
 
+  const totalPayment = dataOrder.reduce((acc, obj) => {
+    return acc + obj.price;
+  }, 0);
+  const totalTicket = dataOrder.reduce((acc, obj) => {
+    return acc + obj.qty;
+  }, 0);
+
   const handleOrderSeat = () => {
-    console.log(dataOrder);
     navigate("/payment", {
       state: {
         dataOrder,
         eventId: state.eventId,
+        totalPayment,
+        totalTicket,
+        activeSeat,
       },
     });
   };
