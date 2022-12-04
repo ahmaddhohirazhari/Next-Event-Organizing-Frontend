@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 import "./index.css";
 import { getDataEvent } from "../../stores/actions/event";
-import { useDispatch } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux/es/exports";
 export default function EventByDate() {
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
-  const [pagination, setPagination] = useState({});
+  const data = useSelector((state) => state.event);
+  console.log(data);
+
   const [page, setPage] = useState(1);
   const dispacth = useDispatch();
 
@@ -24,13 +25,11 @@ export default function EventByDate() {
   useEffect(() => {
     generateDate();
     getEvent();
-  }, []);
+  }, [page, dateShow]);
 
   const getEvent = async () => {
     try {
-      const result = await dispacth(getDataEvent());
-      setData(result.data.data);
-      setPagination(result.data.pagination);
+      await dispacth(getDataEvent(page));
     } catch (error) {
       return error.error;
     }
@@ -89,17 +88,18 @@ export default function EventByDate() {
           </div>
         </div>
         <div className="container_event  justify-content-center gap-4 mt-5">
-          <main className="container d-flex container_event gap-3">
-            {data.length > 0 ? (
-              data.map((item) => (
-                <div key={item.eventId}>
-                  <CardEvent data={item} handleDetail={handleDetailEvent} />
+          <main className="container d-flex gap-3 my-5">
+            {data.data.length > 0 ? (
+              data.data.map((item) => (
+                <div key={item.id}>
+                  <CardEvent
+                    data={item}
+                    handleDetailEvent={handleDetailEvent}
+                  />
                 </div>
               ))
             ) : (
-              <div className="text-center justify-content-center nothing_event">
-                <h3>Nothing Event</h3>
-              </div>
+              <h1>Data Not Found !</h1>
             )}
           </main>
         </div>
@@ -111,7 +111,7 @@ export default function EventByDate() {
           <button
             className="btn btn-primary"
             onClick={handleNextPage}
-            disabled={page === pagination.totalPage ? true : false}
+            // disabled={page ? true : false}
           >
             &gt;
           </button>
